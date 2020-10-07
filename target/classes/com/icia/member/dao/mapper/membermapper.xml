@@ -4,7 +4,18 @@
  
  <mapper namespace="Member"> 
 	<insert id="memberJoin" parameterType="member">
-		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH) VALUES(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth})
+		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH) VALUES
+		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth})
+	</insert>
+	
+	<insert id="kakaomemberJoin" parameterType="member">
+		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH,KAKAOID) VALUES
+		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth},#{kakaoId})
+	</insert>
+	
+	<insert id="navermemberJoin" parameterType="member">
+		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH,NAVERID) VALUES
+		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth},#{naverId})
 	</insert>
 	
 	<select id="memberLogin" parameterType="member" resultType="String">
@@ -19,10 +30,21 @@
 		SELECT * FROM MEMBERS WHERE MID=#{mid}
 	</select>
 	
-		<select id="memberDelete" >
+	<select id="memberDelete" >
 		 DELETE FROM MEMBERS WHERE MID=#{mid}
 	</select>
 	
+	<select id="memberUpdate" parameterType="member" >
+		 UPDATE MEMBERS SET MPASSWORD=#{mpassword},MNAME=#{mname},MPHONE=#{mphone} WHERE MID=#{mid}
+	</select>
+	
+	<select id="idOverlap" parameterType="String" resultType="String" >
+		 SELECT MID FROM MEMBERS WHERE MID=#{mid}
+	</select>
+	
+	<select id="kakaoLogin" parameterType="String" resultType="String" >
+		 SELECT MID FROM MEMBERS WHERE KAKAOID=#{kakaoId}
+	</select>
 	
 	
 	

@@ -15,8 +15,13 @@ public class MemberDAO {
 	private SqlSessionTemplate sql;
 	
 	public int memberJoin(MemberDTO member) {
+		if(member.getKakaoId()!= null) {
+		return sql.insert("Member.kakaoMemberJoin", member);
+		}else if(member.getNaverId() != null) {
+		return sql.insert("Member.naverMemberJoin", member);
+		}else {
 		return sql.insert("Member.memberJoin", member);
-		
+		}
 	}
 
 	public String memberLogin(MemberDTO member) {
@@ -34,6 +39,19 @@ public class MemberDAO {
 	public void memberDelete(String mid) {
 			sql.update("Member.memberDelete",mid);
 		
+	}
+
+	public void memberUpdate(MemberDTO member) {
+			sql.update("Member.memberUpdate",member);
+		
+	}
+
+	public String idOverlap(String mid) {
+		return sql.selectOne("Member.idOverlap",mid);
+	}
+
+	public String kakaoLogin(String kakaoId) {
+		return sql.selectOne("Member.kakaoLogin",kakaoId);
 	}
 
 

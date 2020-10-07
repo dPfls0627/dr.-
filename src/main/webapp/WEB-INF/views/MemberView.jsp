@@ -17,6 +17,10 @@
             <td>전화번호</td>
             <td>이메일</td>
             <td>생일</td>
+            <c:if test="${sessionScope.loginId eq member.mid}">
+            <td>수정</td>
+             </c:if>
+            
             
         </tr>
             <tr align="center">
@@ -26,6 +30,9 @@
                 <td>${member.mphone}</td>
                 <td>${member.memail}</td>
                 <td>${member.mbirth}</td>
+                <c:if test="${sessionScope.loginId eq member.mid}">
+                <td><a href="membershow?mid=${member.mid}">수정</a>
+                </c:if>
             </tr>
         <tr align="center">
             <td colspan="5" align="center"> 

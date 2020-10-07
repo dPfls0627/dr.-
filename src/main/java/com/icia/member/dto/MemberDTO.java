@@ -16,5 +16,7 @@ public class MemberDTO {
 	private String memail;
 	private String mbirth;
 	
+	private String kakaoId;
+	private String naverId;
 	
 }
