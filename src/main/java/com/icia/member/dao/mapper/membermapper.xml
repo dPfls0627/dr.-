@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Member"> 
+	<insert id="memberJoin" parameterType="member">
+		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH) VALUES(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth})
+	</insert>
+	
+	<select id="memberLogin" parameterType="member" resultType="String">
+		SELECT MID FROM MEMBERS WHERE MID=#{mid} AND MPASSWORD=#{mpassword}
+	</select>
+	
+	<select id="memberList" resultType="member">
+		SELECT * FROM MEMBERS
+	</select>
+	
+	<select id="memberView" parameterType="String" resultType="member">
+		SELECT * FROM MEMBERS WHERE MID=#{mid}
+	</select>
+	
+		<select id="memberDelete" >
+		 DELETE FROM MEMBERS WHERE MID=#{mid}
+	</select>
+	
+	
+	
+	
+ </mapper>
