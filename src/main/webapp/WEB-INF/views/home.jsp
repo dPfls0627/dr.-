@@ -17,6 +17,13 @@
 <a href="kakaojoin">
 <img src="${pageContext.request.contextPath}/resources/img/kakao_login_small.png">
 </a>	
+
+<h3>네이버로 회원가입</h3>
+<a href="naverjoin">
+<img src="${pageContext.request.contextPath}/resources/img/네이버 아이디로 로그인_완성형_Green.PNG"/>
+</a><br>
+
+
 	
 </body>
 </html>

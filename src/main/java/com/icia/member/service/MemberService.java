@@ -1,12 +1,18 @@
 package com.icia.member.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonNode;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.icia.member.dao.MemberDAO;
@@ -23,10 +29,19 @@ public class MemberService {
 	// Autowired 안쓰니까 주의
 	private ModelAndView mav;
 	
-	public ModelAndView memberjoin(MemberDTO member) {
-		int joinResult=memberDAO.memberJoin(member);
+	
+	public ModelAndView memberjoin(MemberDTO member) throws IllegalStateException, IOException {
+		MultipartFile profile = member.getProfile();
 		mav = new ModelAndView();
+		String profilename = profile.getOriginalFilename();
 		
+		String savePath = "D:\\source\\Spring\\MemberBoard\\src\\main\\webapp\\resources\\img\\"+profilename;
+		if(!profile.isEmpty()) {
+			profile.transferTo(new File(savePath));
+		}
+		member.setProfilename(profilename);
+		
+		int joinResult=memberDAO.memberJoin(member);
 		if(joinResult>0) {
 			//성공시 Login으로 이동
 			mav.setViewName("LoginForm");
@@ -44,7 +59,7 @@ public class MemberService {
 		
 		if(loginId != null) {
 			session.setAttribute("loginId",loginId);
-		 mav.setViewName("MemberMain");
+		 mav.setViewName("redirect:/boardlistpaging");
 		}else {
 		 mav.setViewName("LoginFailForm");
 		}
@@ -75,6 +90,10 @@ public class MemberService {
 		memberDAO.memberDelete(mid);
 		mav.setViewName("redirect:/memberlist");
 		return mav;
+	}
+	
+	public void memberDeleteAjax(String mid) {
+		memberDAO.memberDelete(mid);
 	}
 	
 	public ModelAndView memberShow(String mid) {
@@ -119,5 +138,19 @@ public class MemberService {
 		
 		return mav;
 	}
+	
+	public ModelAndView naverLogin(String profile) throws ParseException {
+		mav = new ModelAndView();
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(profile);
+		JSONObject naverUser = (JSONObject)obj;
+		JSONObject userInfo = (JSONObject)naverUser.get("response");
+		String naverId = (String)userInfo.get("id");
+		String loginId = memberDAO.naverLogin(naverId);
+		session.setAttribute("loginId", loginId);
+		mav.setViewName("MemberMain");
+		return mav;
+	}
+
 	
 }

@@ -7,77 +7,168 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-	function idOverlap() {
-		var inputId = document.getElementById("mid").value;
-		//ajax(Asynchronous javascript and XML)
-				$.ajax({
-					type : "post", //전송방식
-					url : "idoverlap", //url주소
-					data : {"mid":inputId}, // 데이터안에 또다른 데이터를 넣을수있다.
-				dataType : "text", //데이터 형식
-				success : function(result){ //통신 성공시
-					if(result =="OK"){
-						alert("사용가능한 ID입니다.")
-					}else{
-						alert("이미 사용중인 ID 입니다.")
-					}
-				},
-				error : function(){	//통신 실패시 
-						alert("전송실패~")
-				}
-				
-				});
-	}
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
 </script>
+
 <script>
-	function idlap() {
-		var inputId = document.getElementById("mid").value;
-		var idch = document.getElementById("idch");
-		//ajax(Asynchronous javascript and XML)
-				$.ajax({
-					type : "post", //전송방식
-					url : "idoverlap", //url주소
-					data : {"mid":inputId}, // 데이터안에 또다른 데이터를 넣을수있다.
-				dataType : "text", //데이터 형식
-				success : function(result){ //통신 성공시
-				if(result =="OK"){
-					idch.style.color = "green";
-					idch.innerHTML= "사용가능한 ID입니다.";
-					}else{
-					idch.style.color = "red";
-					idch.innerHTML="사용할수없는 ID입니다.";
-					}
-				},
-				error : function(){	//통신 실패시 
-						alert("전송실패~")
+	function idOverlap(){
+		
+		var inputId = $("#mid").val();
+		var checkResult = document.getElementById("checkresult");
+		// ajax(Asynchronous javascript and XML)
+		// JSON(JavaScript Object Notation)
+		$.ajax({
+			type : "post",
+			url : "idoverlap",
+			data : {"mid" : inputId},
+			dataType : "text",
+			success : function(result) {
+				if(result=="OK"){
+					//alert("사용가능한 ID 입니다.");
+					checkResult.style.color = "green";
+					checkResult.innerHTML = "사용가능한 ID 입니다.";
+				} else {
+					//alert("이미 사용중인 ID 입니다.");
+					checkResult.style.color = "red";
+					checkResult.innerHTML = "이미 사용중인 ID 입니다.";
 				}
-				
-				});
+			},
+			error : function(){
+				alert("ajax 실패!!");
+			}
+		});
 	}
 	</script>
+	<script>
+	function chkPW(){
+		 var pwcheckResult = document.getElementById("pwcheckresult");
+		 var pw = $("#password").val();
+		 var num = pw.search(/[0-9]/g);
+		 var eng = pw.search(/[a-z]/ig);
+		 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+		 if(pw.length < 8 || pw.length > 20){
+		  pwcheckResult.style.color = "red";
+		  pwcheckResult.innerHTML = "8자리 ~ 20자리 이내로 입력해주세요.";
+		  return false;
+		 }else if(pw.search(/\s/) != -1){
+		  pwcheckResult.style.color = "red";
+		  pwcheckResult.innerHTML ="비밀번호는 공백 없이 입력해주세요.";
+		  return false;
+		 }else if(num < 0 || eng < 0 || spe < 0 ){
+		  pwcheckResult.style.color = "red";
+		  pwcheckResult.innerHTML = "영문,숫자, 특수문자를 혼합하여 입력해주세요.";
+		  return false;
+		 }else {
+			pwcheckResult.style.color = "green";
+			pwcheckResult.innerHTML ="통과"; 
+		    return true;
+		 }
+
+		}
+	</script>
+	<script>
+	function chkPhone(){
+		 var phone=  $("#mphone").val();
+		 var phonecheckResult = document.getElementById("phonecheckresult");
+		 var regExp = /^\d{3}-\d{3,4}-\d{4}$/;
+		 if(!regExp.test($("#mphone").val())){
+			 phonecheckResult.style.color ="red";
+			 phonecheckResult.innerHTML = "잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.";
+		  return false;
+		 }else {
+			 phonecheckResult.style.color ="green";
+			 phonecheckResult.innerHTML ="통과"; 
+		    return true;
+		 }
+	}
 	
+</script>
 </head>
 <body>
-	<h1>회원가입</h1>
-	카카오 아이디 : ${kakaoId}
-
-	<form action="memberjoin" method="post">
+	<h2>MemberJoin.jsp</h2>
+	카카오 아이디 : ${kakaoId}	<br>
+	네이버 아이디 : ${naverId}	<br>
+	
+	<form action="memberjoin" method="post" enctype="multipart/form-data">
 		<c:choose>
-		<c:when test="${kakaoId ne null}">
-		ID:<input type="text" name="mid" id="mid" onkeyup="idlap()">
-		<input type="hidden" name="kakaoId" value="${kakaoId}"><br>
-		<span id="idch"></span><br>
-		</c:when>
+			<c:when test="${kakaoId ne null}">
+				<input type="text" name="mid" id="mid" onkeyup="idOverlap()" placeholder="아이디" >
+				<input type="hidden" name="kakaoId" value="${kakaoId}"><br>
+				<span id="checkresult"></span> 
+			</c:when>
+			<c:when test="${naverId ne null}">
+				<input type="text" name="mid" id="mid" onkeyup="idOverlap()" placeholder="아이디">
+				<input type="hidden" name="naverId" value="${naverId}"><br>
+				<span id="checkresult"></span> 
+			</c:when>
+			<c:otherwise>
+				<input type="text" name="mid" id="mid" onkeyup="idOverlap()" placeholder="아이디">
+				<span id="checkresult"></span><br>
+			</c:otherwise>
 		</c:choose>
-		
-		ID:<input type="text" name="mid" id="mid" onkeyup="idlap()"><span id="idch"></span><br>
-		<input type="button" value="아이디중복확인" onclick="idOverlap()"> <br>
-		PW:<input type="password" name="mpassword"><br>
-		NAME:<input type="text" name="mname"><br>
-		PHONE:<input type="tel" name="mphone"><br>
-		EMAIL:<input type="email" name="memail"><br>
-		BIRTHDATE:<input type="date" name="mbirth"><br>
+		<input type="password" name="mpassword" id="password" onkeyup="chkPW()" placeholder="비밀번호">
+		<span id="pwcheckresult"></span> <br>
+		<input type="text" name="mname" placeholder="이름"><br>
+		<input type="tel" name="mphone" id="mphone" onkeyup="chkPhone()" placeholder="전화번호">
+		<span id="phonecheckresult"></span> <br>
+		<input type="email" name="memail" placeholder="이메일"><br>
+		<input type="date" name="mbirth" placeholder="생일"><br>
+		<input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호">
+		<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+		<input type="text" name="address" id="sample6_address" placeholder="주소"><br>
+		<input type="text" name="detailaddress" id="sample6_detailAddress" placeholder="상세주소">
+		<input type="text" name="extraaddress" id="sample6_extraAddress" placeholder="참고항목"><br>
+		<input type="file" name="profile" id="profile" placeholder="프로필사진">
+		<br>
 		<input type="submit" value="SIGNUP">
 	</form>
 

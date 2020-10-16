@@ -29,8 +29,28 @@
 		<beans:property name="defaultEncoding" value="UTF-8" />
 		<beans:property name="maxUploadSize" value="10000000" /><!--	10MB -->
 		<beans:property name="maxInMemorySize" value="10000000" /><!--	10MB -->
-	</beans:bean>		
-	
+	</beans:bean>	
+	<!-- spring-donwload bean -->
+<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+    <beans:property name="order" value="0" />
+</beans:bean>
+<beans:bean id="downloadView" class="com.icia.member.utils.DownloadView" />
+<!-- /spring-donwload bean -->
+
+<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<beans:property name="prefix" value="/WEB-INF/views/" />
+	<beans:property name="suffix" value=".jsp" />
+	<beans:property name="order" value="1" />
+</beans:bean> 
+
+<!-- Naver API 빈으로 등록 -->
+
+
+<beans:bean class="com.icia.member.api.NaverJoinApi" id="naverJoinApi"/>
+
+<beans:bean class="com.icia.member.api.NaverLoginApi" id="naverLoginApi"/>
+
 </beans:beans>
 
 

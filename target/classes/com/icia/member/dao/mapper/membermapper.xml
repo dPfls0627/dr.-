@@ -4,18 +4,18 @@
  
  <mapper namespace="Member"> 
 	<insert id="memberJoin" parameterType="member">
-		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH) VALUES
-		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth})
+		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH,POSTCODE,ADDRESS,DETAILADDRESS,EXTRAADDRESS,PROFILENAME) VALUES
+		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth},#{postcode},#{address},#{detailaddress},#{extraaddress},#{profilename})
 	</insert>
 	
 	<insert id="kakaomemberJoin" parameterType="member">
-		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH,KAKAOID) VALUES
-		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth},#{kakaoId})
+		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH,KAKAOID,POSTCODE,ADDRESS,DETAILADDRESS,EXTRAADDRESS,PROFILENAME) VALUES
+		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth},#{kakaoId},#{postcode},#{address},#{detailaddress},#{extraaddress},#{profilename})
 	</insert>
 	
 	<insert id="navermemberJoin" parameterType="member">
-		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH,NAVERID) VALUES
-		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth},#{naverId})
+		INSERT INTO MEMBERS(MID,MPASSWORD,MNAME,MPHONE,MEMAIL,MBIRTH,NAVERID,POSTCODE,ADDRESS,DETAILADDRESS,EXTRAADDRESS,PROFILENAME) VALUES
+		(#{mid},#{mpassword},#{mname},#{mphone},#{memail},#{mbirth},#{naverId},#{postcode},#{address},#{detailaddress},#{extraaddress},#{profilename})
 	</insert>
 	
 	<select id="memberLogin" parameterType="member" resultType="String">
@@ -45,7 +45,9 @@
 	<select id="kakaoLogin" parameterType="String" resultType="String" >
 		 SELECT MID FROM MEMBERS WHERE KAKAOID=#{kakaoId}
 	</select>
-	
+	<select parameterType="String" id="naverLogin" resultType="String">
+	 SELECT MID FROM MEMBERS WHERE NAVERID=#{naverId}
+	  </select>
 	
 	
  </mapper>

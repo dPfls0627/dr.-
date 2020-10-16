@@ -4,5 +4,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="member" type="com.icia.member.dto.MemberDTO"/>
+		<typeAlias type="com.icia.member.dto.BoardDTO" alias="board"/>
+		<typeAlias type="com.icia.member.dto.PageDTO" alias="page"/>
+		<typeAlias type="com.icia.member.dto.CommentDTO" alias="comment"/>
 	</typeAliases>
 </configuration>
