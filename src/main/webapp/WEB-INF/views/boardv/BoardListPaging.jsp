@@ -10,11 +10,21 @@
 	function boardSearch() {
 		searchform.submit();
 	}
+	function logout(){
+		location.href="memberlogout";
+		
+	}
 </script>
 </head>
 <body>
-	<h2>BoardListPaging.jsp</h2>
-	
+	<h2>게시글 목록</h2>
+	<c:if test="${sessionScope.loginId eq 'admin'}">
+<a href="memberlist">회원목록 조회</a>
+	</c:if>
+	<c:if test="${sessionScope.loginId ne 'admin'}">
+<a href="memberview?mid=${sessionScope.loginId}">마이페이지 </a>
+	</c:if>
+<button onclick="logout()" >로그아웃</button>
 	<form action="boardsearch" method="get" name="searchform">
 		<select id="searchtype" name="searchtype">
 			<option value="searchtitle">제목</option>
@@ -35,8 +45,9 @@
 		<c:forEach var="board" items="${boardList}" >
 			<tr>
 				<td>${board.bnumber}</td>
-				<td><a
-					href="#" onclick="popup('${board.bwriter}')">${board.bwriter}</a></td>
+				<td><a href="memberpopup?mid=${board.bwriter}&page=${paging.page}"
+					onclick="window.open(this.href,'_blank','width=300px,height=500px,toolbars=no,scrollbars=no');
+					return false;">${board.bwriter}</a></td>
 				<td><a
 					href="boardview?bnumber=${board.bnumber}&page=${paging.page}">${board.btitle}</a></td>
 				<td>${board.bdate}</td>
@@ -45,6 +56,9 @@
 		</c:forEach>
 		<tr>
 			<td colspan="5"><button onclick="location.href='boardwritefileform'">글쓰기</button> </td>
+		</tr>
+		<tr>
+			<td colspan="5"><button onclick="location.href='bhits'">조회순정렬</button> </td>
 		</tr>
 	</table>
 

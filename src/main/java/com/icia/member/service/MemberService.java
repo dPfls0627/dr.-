@@ -15,11 +15,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.icia.member.dao.BoardDAO;
 import com.icia.member.dao.MemberDAO;
+import com.icia.member.dto.BoardDTO;
 import com.icia.member.dto.MemberDTO;
 
 @Service
 public class MemberService {
+	
+	@Autowired
+	private BoardDAO boardDAO;
+	
 	
 	@Autowired
 	private MemberDAO memberDAO;
@@ -79,11 +85,22 @@ public class MemberService {
 	public ModelAndView memberView(String mid) {
 		mav = new ModelAndView();
 		MemberDTO member = new MemberDTO();
+		List<BoardDTO> boardList = boardDAO.boardList(mid);
 		member = memberDAO.memberView(mid);
+		mav.addObject("boardList", boardList);
 		mav.addObject("member",member);
 		mav.setViewName("MemberView");
 		return mav;
 	}
+	public ModelAndView memberPopup(String mid) {
+		mav = new ModelAndView();
+		MemberDTO member = new MemberDTO();
+		member = memberDAO.memberView(mid);
+		mav.addObject("member",member);
+		mav.setViewName("MemberPopup");
+		return mav;
+	}
+	
 
 	public ModelAndView memberDelete(String mid) {
 		mav = new ModelAndView();

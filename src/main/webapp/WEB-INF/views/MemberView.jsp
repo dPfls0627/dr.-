@@ -9,7 +9,7 @@
 </head>
 <body>
 <table border="1">
-<caption>MemberList.jsp</caption>
+<caption>마이페이지</caption>
         <tr align="center">
             <td>아이디</td>
             <td>비밀번호</td>
@@ -40,6 +40,30 @@
             </td>
         </tr>
     </table>
-    
+    <h4>내가 작성한 글목록</h4>
+    <table border="1">
+		<thead>
+			<tr>
+				<th>글번호</th>
+				<th>작성자</th>
+				<th>글제목</th>
+				<th>작성일자</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="board" items="${boardList}">
+				<tr>
+					<td>${board.bnumber}</td>
+					<td>${board.bwriter}</td>
+					<td><a
+						href="boardview?bnumber=${board.bnumber}">${board.btitle}</a></td>
+					<td>${board.bdate}</td>
+					<td>${board.bhits}</td>
+				</tr>
+				<br>
+			</c:forEach>
+		</tbody>
+    </table>
 </body>
 </html>

@@ -16,10 +16,10 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 
 public class NaverJoinApi {
 
-	private final static String CLIENT_ID = "AlYckfr3HUh4DXBBctKb";
-	private final static String CLIENT_SECRET = "Z2ns72JkIy";
+	private final static String CLIENT_ID = "kZjQetsskid1Nt1aBfhe";
+	private final static String CLIENT_SECRET = "F1XQXwfUB8";
 
-	private final static String REDIRECT_URI = "http://localhost:8084/test/naverjoinok";
+	private final static String REDIRECT_URI = "http://localhost:8084/member/naverjoinok";
 	private final static String SESSION_STATE = "oauth_state";
 
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";

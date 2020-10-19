@@ -68,9 +68,18 @@
 	<c:if test="${sessionScope.loginId eq boardView.bwriter }"> 
 	<button onclick="location.href=
 				'boardupdate?bnumber=${boardView.bnumber}'">수정</button>
+				</c:if>
+	<c:if test="${sessionScope.loginId eq boardView.bwriter || sessionScope.loginId eq 'admin' }"> 
 	<button onclick="location.href=
 				'boarddelete?bnumber=${boardView.bnumber}'">삭제</button>				
 	</c:if>
+	<table>
+	<tr align="center">
+      <td colspan="5" align="center"> 
+                <a href="javascript:history.go(-1)">돌아가기</a>
+       </td>
+     </tr>
+     </table>
 	<div id="commentWrite">
 		작성자 : <input type="text" id="cwriter" value="${sessionScope.loginId}" readonly><br>
 		내용 : <input type="text" id="ccontents"><br>

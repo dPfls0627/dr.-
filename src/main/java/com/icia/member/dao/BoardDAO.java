@@ -21,10 +21,14 @@ public class BoardDAO {
 		return sql.insert("Board.boardWrite", board);
 	}
 
-	public List<BoardDTO> boardList() {
-		return sql.selectList("Board.boardList");
+	public List<BoardDTO> boardList(String mid) {
+		return sql.selectList("Board.boardList", mid);
 	}
 
+	public List<BoardDTO> boardBhits() {
+		return sql.selectList("Board.boardBhits");
+	}
+	
 	public void boardHits(int bnumber) {
 		sql.update("Board.boardHits", bnumber);
 	}

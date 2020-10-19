@@ -39,14 +39,6 @@ public class BoardService {
 		return mav;
 	}
 	
-	public ModelAndView boardList() {
-		mav = new ModelAndView();
-		List<BoardDTO> boardList = boardDAO.boardList();
-		mav.addObject("boardList", boardList);
-		mav.setViewName("boardv/BoardList");
-		return mav;
-	}
-
 	public ModelAndView boardView(int bnumber, int page) {
 		mav = new ModelAndView();
 		boardDAO.boardHits(bnumber);
@@ -148,7 +140,16 @@ public class BoardService {
 		return mav;
 	}
 
-}
+	public ModelAndView boardListbhits() {
+		mav = new ModelAndView();
+		List<BoardDTO> boardListBhits = boardDAO.boardBhits();
+		mav.addObject("boardList", boardListBhits);
+		mav.setViewName("boardv/BoardListPaging");
+		return mav;
+	}
+
+	}
+
 
 
 

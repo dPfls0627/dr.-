@@ -22,9 +22,9 @@ public class BoardController {
 	
 	private ModelAndView mav;
 	
-	@RequestMapping(value="/boardlist")
-	public ModelAndView boardList() {
-		mav = boardService.boardList();
+	@RequestMapping(value="/bhits")
+	public ModelAndView boardListbhits() {
+		mav = boardService.boardListbhits();
 		return mav;
 	}
 	

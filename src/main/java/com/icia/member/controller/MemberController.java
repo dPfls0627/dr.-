@@ -91,6 +91,12 @@ public class MemberController {
 		mav = MemberService.memberView(mid);
 		return mav;
 	}
+	//멤버팝업
+	@RequestMapping(value="/memberpopup")
+	public ModelAndView memberPopup(@RequestParam("mid") String mid) {
+		mav = MemberService.memberPopup(mid);
+		return mav;
+	}
 	//power 삭 제 
 		@RequestMapping(value="/memberdelete")
 		public ModelAndView memberDelete(@RequestParam("mid") String mid) {
@@ -199,10 +205,13 @@ public class MemberController {
 			JSONParser parser = new JSONParser();
 			
 			Object obj = parser.parse(profile);
-			
+			System.out.println(profile+"프로필");
 			JSONObject naverUser = (JSONObject)obj;
+			System.out.println(naverUser);
 			JSONObject userInfo = (JSONObject)naverUser.get("response");
+			System.out.println(userInfo);
 			String naverId = (String) userInfo.get("id");
+			System.out.println(naverId);
 			
 			mav.addObject("naverId", naverId);
 			mav.setViewName("JoinForm");

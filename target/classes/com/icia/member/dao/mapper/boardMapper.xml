@@ -7,9 +7,14 @@
 		INSERT INTO BOARD(BNUMBER,BWRITER,BTITLE,BCONTENTS,BDATE,BHITS,BFILENAME)
 			VALUES(SEQ_BNUMBER.NEXTVAL,#{bwriter},#{btitle},#{bcontents},SYSDATE,0,#{bfilename})
 	</insert>
-	<select id="boardList" resultType="board">
-		SELECT * FROM BOARD
+	<select id="boardList" parameterType="String" resultType="board">
+		SELECT * FROM BOARD WHERE BWRITER =#{mid} 
 	</select>
+	
+	<select id="boardBhits" resultType="board" >
+		SELECT * FROM BOARD ORDER BY BHITS DESC
+	</select>
+
 	<update id="boardHits" parameterType="int">
 		UPDATE BOARD SET BHITS=BHITS+1 WHERE BNUMBER=#{bnumber}
 	</update>
