@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.icia.member">
+	<logger name="com.yerin.pet">
 		<level value="info" />
 	</logger>
 	

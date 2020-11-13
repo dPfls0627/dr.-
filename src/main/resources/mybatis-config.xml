@@ -3,9 +3,10 @@
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="member" type="com.icia.member.dto.MemberDTO"/>
-		<typeAlias type="com.icia.member.dto.BoardDTO" alias="board"/>
-		<typeAlias type="com.icia.member.dto.PageDTO" alias="page"/>
-		<typeAlias type="com.icia.member.dto.CommentDTO" alias="comment"/>
+		<typeAlias type="com.yerin.pet.dto.MemberDTO" alias="member"/>
+		<typeAlias type="com.yerin.pet.dto.BoardDTO" alias="board"/>
+		<typeAlias type="com.yerin.pet.dto.NTBoardDTO" alias="ntboard"/>
+		<typeAlias type="com.yerin.pet.dto.PageDTO" alias="page"/>
+		<typeAlias type="com.yerin.pet.dto.CommentDTO" alias="comment"/>
 	</typeAliases>
 </configuration>

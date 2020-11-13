@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.icia.member" />
+	<context:component-scan base-package="com.yerin.pet" />
 	
 	<!-- 파일 업로드 설정 -->
 	<beans:bean id="multipartResolver" 
@@ -34,7 +34,8 @@
 <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
     <beans:property name="order" value="0" />
 </beans:bean>
-<beans:bean id="downloadView" class="com.icia.member.utils.DownloadView" />
+
+<beans:bean id="downloadView" class="com.yerin.pet.utils.DownloadView" />
 <!-- /spring-donwload bean -->
 
 <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -46,17 +47,11 @@
 
 <!-- Naver API 빈으로 등록 -->
 
+<beans:bean class="com.yerin.pet.api.NaverJoinApi" id="naverJoinApi"/>
 
-<beans:bean class="com.icia.member.api.NaverJoinApi" id="naverJoinApi"/>
-
-<beans:bean class="com.icia.member.api.NaverLoginApi" id="naverLoginApi"/>
+<beans:bean class="com.yerin.pet.api.NaverLoginApi" id="naverLoginApi"/>
 
 </beans:beans>
-
-
-
-
-
 
 
 
