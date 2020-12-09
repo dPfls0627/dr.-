@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="DTBoard"> 
+	<insert id="boardWriteFile" parameterType="dtboard">
+		INSERT INTO DTBOARD(DTBNUMBER,DTBWRITER,DTBTITLE,DTBCONTENTS,DTBDATE,DTBHITS)
+			VALUES(SEQ_DTBNUMBER.NEXTVAL,#{dtbwriter},#{dtbtitle},#{dtbcontents},TO_CHAR(SYSDATE, 'YY-MM-DD'),0)
+	</insert>
+	<select id="boardList" parameterType="String" resultType="dtboard">
+		SELECT * FROM DTBOARD WHERE DTBWRITER =#{mid} 
+	</select>
+	
+	<select id="boardBhits" resultType="dtboard" >
+		SELECT * FROM DTBOARD ORDER BY DTBHITS DESC
+	</select>
+
+	<update id="boardHits" parameterType="int">
+		UPDATE DTBOARD SET DTBHITS=DTBHITS+1 WHERE DTBNUMBER=#{dtbnumber}
+	</update>
+	<select id="boardView" parameterType="int" resultType="dtboard">
+		SELECT * FROM DTBOARD WHERE DTBNUMBER=#{dtbnumber}
+	</select>
+	
+	<update id="boardUpdate" parameterType="dtboard">
+		UPDATE DTBOARD SET DTBTITLE=#{dtbtitle}, DTBCONTENTS=#{dtbcontents} WHERE DTBNUMBER=#{dtbnumber}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM DTBOARD WHERE DTBNUMBER=#{dtbnumber}
+	</delete>
+	
+	<select id="boardListCount" resultType="int">
+		SELECT COUNT(DTBNUMBER) FROM DTBOARD
+	</select>
+	
+	<select id="boardListPaging" parameterType="page" resultType="dtboard">
+		SELECT * FROM (SELECT B.*, ROW_NUMBER() OVER(ORDER BY DTBNUMBER DESC)
+			AS RN FROM DTBOARD B) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="boardSearch" resultType="dtboard" parameterType="java.util.HashMap">
+		SELECT * FROM DTBOARD 
+			<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="type == 'searchtitle'">
+				WHERE DTBTITLE LIKE '%'||#{word}||'%'
+			</when>
+			<when test="type == 'searchwriter'">
+				WHERE DTBWRITER LIKE '%'||#{word}||'%'
+			</when>
+		</choose>
+	</sql>
+	
+	
+	
+	
+	
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

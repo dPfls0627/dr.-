@@ -14,16 +14,34 @@ public class CommentService {
 	
 	@Autowired
 	private CommentDAO commentDAO;
-	
-	public List<CommentDTO> commentWrite(CommentDTO comment) {
+	//등록 
+	public int commentWrite(CommentDTO comment) {
 		int writeResult = commentDAO.commentWrite(comment);
+		return writeResult;
+	}
+	//출력
+	public List<CommentDTO> commentList(CommentDTO comment) {
 		List<CommentDTO> commentList = new ArrayList<CommentDTO>();
-		if(writeResult > 0)
-			commentList = commentDAO.commentList(comment.getCbnumber());
-		else
-			commentList = null;
-		
+		String bnum =  Integer.toString(comment.getCbnumber());
+		String btype = comment.getBtype();
+			commentList = commentDAO.commentList(bnum,btype);	
 		return commentList;
+	}
+	//삭제
+	public int commentDelete(int cbnumber) {
+		int DeleteResult = commentDAO.commentDelete(cbnumber);
+
+		return DeleteResult;
+	}
+	public String reserveLoad(String mname, int productid) {
+		String checkResult = commentDAO.reserveLoad(mname, productid);
+		String resultMag = null;
+		if (checkResult != null) {
+			resultMag="OK";
+		}else {
+			resultMag="NO";
+		}
+		return resultMag;
 	}
 	
 }

@@ -154,13 +154,13 @@
                             <li><a href="shop?type=C">문화공간</a></li>
                         </ul>
                         </li>
-                        <li class="active"><a href="./공지사항.html">커뮤니티</a>
+                      <li class="active"><a href="ntboardlist">커뮤니티</a>
                             <ul class="dropdown">
-                                <li><a href="공지사항?type=news">공지사항</a></li>
-                                <li><a href="자유게시판?type=free">자유게시판</a></li>
-                                <li><a href="사진갤러리?type=Photo">사진갤러리</a></li>
-                                <li><a href="상담게시판?type=question">상담게시판</a></li>
-                                <li><a href="강의동영상?type=vod">강의 동영상</a></li>
+                                <li><a href="ntboardlist">공지사항</a></li>
+                                <li><a href="freeboardlist">자유게시판</a></li>
+                                <li><a href="ptboardlist">사진갤러리</a></li>
+                                <li><a href="dtboardlist">상담게시판</a></li>
+                                <li><a href="vodboardlist">강의 동영상</a></li>
                             </ul>
                         </li>
                         <li><a href="contact">문의</a></li>
@@ -179,11 +179,11 @@
 					<div class="inner">
 						<nav class="lnb lnb_scroll v3">
 							<ul>
-								<li><a href="공지사항?type=news"><span>공지사항</span></a></li>
-								<li><a href="자유게시판?type=free" ><span>자유게시판</span></a></li>
-								<li><a href="사진갤러리?type=Photo"><span>사진갤러리</span></a></li>
-								<li><a href="상담게시판?type=question" class="on"><span>상담게시판</span></a></li>
-								<li><a href="강의동영상?bbs=vod" ><span>강의 동영상</span></a></li>
+								<li><a href="ntboardlist"><span>공지사항</span></a></li>
+								<li><a href="freeboardlist"><span>자유게시판</span></a></li>
+								<li><a href="ptboardlist"><span>사진갤러리</span></a></li>
+								<li><a href="dtboardlist" class="on"><span>상담게시판</span></a></li>
+								<li><a href="vodboardlist"><span>강의 동영상</span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -233,265 +233,30 @@
 											<td class="bbs-list-user">작성자</td>
 											<td class="bbs-list-date">작성일</td>
 											<td class="bbs-list-view">조회</td>
+											<td class="bbs-list-view">좋아요</td>
 										</tr>
-									</thead>
+									</thead>						
 									<tbody>
-																				<tr>
-											<td class="bbs-list-uid">27</td>
+											<c:forEach var="dtboard" items="${boardList}" >
+											<tr>
+											<td class="bbs-list-uid">${dtboard.dtbnumber}</td>
 											<td class="bbs-list-title">
-												<a href="bbs_view4272.html?bbs=news&amp;idx=28&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
+												<a href="dtboardview?bnumber=${dtboard.dtbnumber}&page=${paging.page}&type=doctor">
 													<div class="bbs-cut-strings">
-														거제청년센터 이룸, 예비창업가 청년창업 교육 실시													</div>
+														${dtboard.dtbtitle}												</div>
 													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.10.23</span>
-														<span class="contents-item">19</span>
+														<span class="contents-item">${dtboard.dtbwriter}</span>
+														<span class="contents-item">${dtboard.dtbdate}</span>
+														<span class="contents-item">${dtboard.dtbhits}</span>
 													</div>
 												</a>
 											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.10.23</td>
-											<td class="bbs-list-view">19</td>
+											<td class="bbs-list-user">${dtboard.dtbwriter}</td>
+											<td class="bbs-list-date">${dtboard.dtbdate}</td>
+											<td class="bbs-list-view">${dtboard.dtbhits}</td>
 										</tr>
-																				<tr>
-											<td class="bbs-list-uid">26</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view180f.html?bbs=news&amp;idx=27&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제청년들, 선진지 우수사례 접하고, 배우고													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.10.20</span>
-														<span class="contents-item">15</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.10.20</td>
-											<td class="bbs-list-view">15</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">25</td>
-											<td class="bbs-list-title">
-												<a href="bbs_viewea62.html?bbs=news&amp;idx=26&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제청년 프리마켓, 뜨거운 호응속 ‘성료’													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.10.20</span>
-														<span class="contents-item">14</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.10.20</td>
-											<td class="bbs-list-view">14</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">24</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view699c.html?bbs=news&amp;idx=25&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제청년센터 이룸, 면접 이미지메이킹 특강 실시													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.10.08</span>
-														<span class="contents-item">10</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.10.08</td>
-											<td class="bbs-list-view">10</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">23</td>
-											<td class="bbs-list-title">
-												<a href="bbs_viewa3db.html?bbs=news&amp;idx=24&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														2020년 거제청년 아카데미 입학식													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.10.07</span>
-														<span class="contents-item">20</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.10.07</td>
-											<td class="bbs-list-view">20</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">22</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view84ed.html?bbs=news&amp;idx=23&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제청년센터 &#039;이룸&#039; 홈페이지오픈													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.09.28</span>
-														<span class="contents-item">16</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.09.28</td>
-											<td class="bbs-list-view">16</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">21</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view74ee.html?bbs=news&amp;idx=22&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														변광용 시장, &#039;청년, 거제에서 한달 살아보기&#039; 청년들과 간담회													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.09.17</span>
-														<span class="contents-item">32</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.09.17</td>
-											<td class="bbs-list-view">32</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">20</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view78f8.html?bbs=news&amp;idx=21&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제시, 민간청년활동공간 &#039;후아유커뮤니티&#039; &#039;밗&#039; 현판 설치													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.09.17</span>
-														<span class="contents-item">15</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.09.17</td>
-											<td class="bbs-list-view">15</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">19</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view3c02.html?bbs=news&amp;idx=20&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제시, 오는 29일까지 2020년 거제청년 아카데미 수강생 모집													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.09.15</span>
-														<span class="contents-item">16</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.09.15</td>
-											<td class="bbs-list-view">16</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">18</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view1f29.html?bbs=news&amp;idx=18&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제청년센터 이룸, 청년창업가 재능기부 문화특강													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.08.24</span>
-														<span class="contents-item">20</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.08.24</td>
-											<td class="bbs-list-view">20</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">17</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view5769.html?bbs=news&amp;idx=11&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														청년 &#039;거제에서 한달 살아보기&#039; 오리엔테이션													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.08.21</span>
-														<span class="contents-item">28</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.08.21</td>
-											<td class="bbs-list-view">28</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">16</td>
-											<td class="bbs-list-title">
-												<a href="bbs_viewb8cc.html?bbs=news&amp;idx=4&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제시 올 하반기 중소기업 등에 청년 57명 추가 채용 지원													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.08.20</span>
-														<span class="contents-item">20</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.08.20</td>
-											<td class="bbs-list-view">20</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">15</td>
-											<td class="bbs-list-title">
-												<a href="bbs_viewb429.html?bbs=news&amp;idx=3&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														올해 첫 ‘청년채용 구인구직 만남의 날’ 300여명 방문													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.08.18</span>
-														<span class="contents-item">25</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.08.18</td>
-											<td class="bbs-list-view">25</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">14</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view4dc4.html?bbs=news&amp;idx=17&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														거제청년센터 이룸, 모의면접 특강													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.08.04</span>
-														<span class="contents-item">12</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.08.04</td>
-											<td class="bbs-list-view">12</td>
-										</tr>
-																				<tr>
-											<td class="bbs-list-uid">13</td>
-											<td class="bbs-list-title">
-												<a href="bbs_view3af6.html?bbs=news&amp;idx=10&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">
-													<div class="bbs-cut-strings">
-														변광용 거제시장 &#039;꿈과 사람에게 투자하겠다&#039;													</div>
-													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.07.29</span>
-														<span class="contents-item">11</span>
-													</div>
-												</a>
-											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.07.29</td>
-											<td class="bbs-list-view">11</td>
-										</tr>
-																			</tbody>
+											</c:forEach>
+									</tbody>
 								</table>
 							</div>
 							<!-- 리스트 끝 -->
@@ -500,14 +265,36 @@
 
 							<!-- 페이징 시작 -->
 							<div class="apagination">
-								<a class="btn_first" href="bbs_listcbb5.html?bbs=news&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">처음</a><span>1</span><a href="bbs_listc09c.html?bbs=news&amp;page=2&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">2</a><a class="btn_last" href="bbs_listc09c.html?bbs=news&amp;page=2&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">마지막</a>							</div>
-							<!-- 페이징 끝 -->
-							<div class="bbs-control">
-								<div class="right">
-									<a href="글쓰기.html?Type=free" class="bbs-button">글작성하기</a>
-								</div>
+							<c:if test="${paging.page<=1}">
+							<a class="btn_first">이전</a>
+							</c:if>
+							<c:if test="${paging.page>1}">
+							<a class="btn_first"
+							href="dtboardlist?page=${paging.page-1}">이전</a>
+							</c:if>
+						   <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+							<c:choose>
+							<c:when test="${i eq paging.page}">
+							<span>${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="dtboardlist?page=${i}">${i}</a>
+							</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							<c:if test="${paging.page>=paging.maxPage}">
+							<a class="btn_last">다음</a>
+							</c:if>
+								<c:if test="${paging.page<paging.maxPage}">
+							<a class="btn_last" href="dtboardlist?page=${paging.page+1}">마지막</a>	
+							</c:if>				
 							</div>
-													</div>
+							<!-- 페이징 끝 -->
+						<div class="bbs-control">
+								<div class="right">
+									<a href="dtboardwritefileform?mid=${sessionScope.loginedId}&page=${paging.page}&type=doctor" class="bbs-button">글작성하기</a>
+								</div>
+						</div>
 					</div>
 					<!-- E -->
 

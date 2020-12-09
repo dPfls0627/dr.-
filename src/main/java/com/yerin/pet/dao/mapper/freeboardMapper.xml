@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="FREEBoard"> 
+	<insert id="boardWriteFile" parameterType="freeboard">
+		INSERT INTO FREEBOARD(FREEBNUMBER,FREEBWRITER,FREEBTITLE,FREEBCONTENTS,FREEBDATE,FREEBHITS)
+			VALUES(SEQ_FREEBNUMBER.NEXTVAL,#{freebwriter},#{freebtitle},#{freebcontents},TO_CHAR(SYSDATE, 'YY-MM-DD'),0)
+	</insert>
+	<select id="boardList" parameterType="String" resultType="freeboard">
+		SELECT * FROM FREEBOARD WHERE FREEBWRITER =#{mid} 
+	</select>
+	
+	<select id="boardBhits" resultType="freeboard" >
+		SELECT * FROM FREEBOARD ORDER BY FREEBHITS DESC
+	</select>
+
+	<update id="boardHits" parameterType="int">
+		UPDATE FREEBOARD SET FREEBHITS=FREEBHITS+1 WHERE FREEBNUMBER=#{freebnumber}
+	</update>
+	<select id="boardView" parameterType="int" resultType="freeboard">
+		SELECT * FROM FREEBOARD WHERE FREEBNUMBER=#{freebnumber}
+	</select>
+	
+	<update id="boardUpdate" parameterType="freeboard">
+		UPDATE FREEBOARD SET BTITLE=#{freebtitle}, FREEBCONTENTS=#{freebcontents} WHERE FREEBNUMBER=#{freebnumber}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM FREEBOARD WHERE FREEBNUMBER=#{freebnumber}
+	</delete>
+	
+	<select id="boardListCount" resultType="int">
+		SELECT COUNT(FREEBNUMBER) FROM FREEBOARD
+	</select>
+	
+	<select id="boardListPaging" parameterType="page" resultType="freeboard">
+		SELECT * FROM (SELECT B.*, ROW_NUMBER() OVER(ORDER BY FREEBNUMBER DESC)
+			AS RN FROM FREEBOARD B) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="boardSearch" resultType="freeboard" parameterType="java.util.HashMap">
+		SELECT * FROM FREEBOARD 
+			<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="type == 'searchtitle'">
+				WHERE FREEBTITLE LIKE '%'||#{word}||'%'
+			</when>
+			<when test="type == 'searchwriter'">
+				WHERE FREEBWRITER LIKE '%'||#{word}||'%'
+			</when>
+		</choose>
+	</sql>
+	
+	
+	
+	
+	
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

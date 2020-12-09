@@ -15,7 +15,7 @@
 #content h6:before{opacity: .9; content: "";display: inline-block;position: absolute;top: 9px;left: 0;width: 7px;height: 4px;background: transparent;border: 2px solid #2578de;border-top: none;border-right: none;transform: rotate(-45deg);}
 #content h6.v2{margin:13px 0 21px 0;}
 
-/* ±âÁ¸½ºÅ¸ÀÏ º¯°æ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 [data-pop-layer="layer"] .popBox{border-radius: 0;}
 [data-pop-layer="layer"] .popBox h2{margin-top:-1px; background-color: #2378c2; border-radius: 0;}
 
@@ -58,15 +58,16 @@
 .lnb li a.on:after{width: 100%;}
 
 /* sub visual */
-.area_subVisual{overflow:hidden; position:relative; height:250px; padding-top:25px; margin: 0 auto; border-radius: 15px 15px 0 0;}
+.area_subVisual{overflow:hidden; position:relative; height:450px; padding-top:25px; margin: 0 auto; border-radius: 15px 15px 0 0;}
 .area_subVisual .inner{position:relative;}
 .area_subVisual .subg{position:absolute; top:0; left:0; z-index:-1; width:100%; height:100%; background-repeat:no-repeat; background-position: 70% 50%; background-size:cover;}
-.area_subVisual .subg.v1{background-image:url(../images/content/img_sub_visual01.jpg);}
-.area_subVisual .subg.v2{background-image:url(../images/content/img_sub_visual02.jpg);}
-.area_subVisual .subg.v3{background-image:url(../images/content/img_sub_visual03.jpg);}
-.area_subVisual .subg.v4{background-image:url(../images/content/img_sub_visual04.jpg);}
-.area_subVisual .subg.v5{background-image:url(../images/content/img_sub_visual05.jpg);}
-.area_subVisual .subg.v6{background-image:url(../images/content/img_sub_visual06.jpg);}
+/* .area_subVisual .subg.v1{background-image:url(../images/content/dog_and_cat_1.jpg);}
+.area_subVisual .subg.v2{background-image:url(../images/content/dog_and_cat_1.jpg);}
+.area_subVisual .subg.v3{background-image:url(../images/content/dog_and_cat_1.jpg);}
+.area_subVisual .subg.v4{background-image:url(../images/content/dog_and_cat_1.jpg);}
+.area_subVisual .subg.v5{background-image:url(../images/content/dog_and_cat_1.jpg);}
+ */
+ .area_subVisual .subg.v6{background-image:url(../images/content/dog_and_cat_1.jpg);}
 .area_subVisual .subg:after{content:""; display:block; position:absolute; top:0; left:0; width:100%; height:100%;}
 .area_subVisual .visual_title{position:absolute; top:45%; left:50%; z-index:1; width:100%; color:#fff; transform:translate(-49.99%, -49.99%);}
 .area_subVisual .visual_title .box_title{word-break:keep-all; word-wrap:break-word; line-height:1.7; text-align:center;}
@@ -147,7 +148,7 @@
 .area_map div#daumRoughmapContainer1572574366451{padding:0;}
 .roughmap_maker_label .roughmap_lebel_text{display:inline-block; font-size:14px !important; font-weight: 500 !important;}
 
-/* ÀÏÀÚ¸®Á¤Ã¥ ¹Ú½º */
+/* ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½Ã¥ ï¿½Ú½ï¿½ */
 .area_boxlist{position:relative; margin:0 auto;}
 .area_boxlist:after{content:''; display:block; clear:both;}
 .area_boxlist > li{display:block; position:relative; float:left; margin:0 10px 10px 0; width:calc(100% / 4 - 8.1px); height:260px; background-color:#fff; border:1px solid #c7c7c7; font-weight:500;}
@@ -164,7 +165,7 @@
 .area_boxlist > li > a > i:after{margin:-6px 0 0 -1px; width:3px; height:11px;}
 .area_boxlist > li > img{position:absolute; display:block; bottom:42px;}
 
-/* ÀÏÀÚ¸®Á¤Ã¥ °Ë»ö¹Ù */
+/* ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½Ã¥ ï¿½Ë»ï¿½ï¿½ï¿½ */
 .area_search{position:relative;}
 .area_search .search_form{position:relative; display:block; margin:0 auto; max-width:700px; background:#fff; border:1px solid #d0d2d6; height:60px;}
 .area_search .search_form input{position:relative; float:left; font-weight: 500; padding-left:2%; width:86%; height:52px; font-size:17px; border:1px solid #fff; color:#161616; font-weight:300; vertical-align:middle; text-align:left;}
@@ -173,7 +174,7 @@
 .area_search .search_form input[type=text]::-moz-placeholder{color:#161616}
 .area_search .search_form .btn_search{position:absolute; top:-1px; right:-1px; width:auto; height:60px; background:#ffad42 url(../images/content/btn_search.png) no-repeat 80% 50%; border:0; padding:0 45px 0 20px; font-size:14px; color:#fff;}
 
-/* ÀÏÀÚ¸®Á¤Ã¥ ¸®½ºÆ® */
+/* ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½Ã¥ ï¿½ï¿½ï¿½ï¿½Æ® */
 .pagination{margin-top:30px; padding-top:30px; border-top:1px dashed #dadada; text-align:center;}
 .pagination > *{display:inline-block; min-width:38px; height:38px; box-sizing:border-box; margin:2px 3px; border:1px solid #ddd; background:#fff; color:#777; text-align:center; vertical-align:top; line-height:36px; transition:border-color 0.3s ease 0s;}
 .pagination a[class^="btn_"]{width:38px; background-image:url(../images/board/btn_pagination.png); background-repeat:no-repeat; text-indent:100%; overflow:hidden; white-space:nowrap;}
@@ -198,7 +199,7 @@
 .apagination a:not([class^="btn_"]):hover,
 .apagination a:not([class^="btn_"]):focus{border-color:#bdc7e0; background:#f3f6fd;}
 
-/* °ø°£ ¹Ì¸®º¸±â */
+/* ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ */
 .area_photo{position: relative;}
 .area_photo .bxslider{display:block; position:relative; width:80%; height:auto;}
 .area_photo .bxslider > li > img{max-width:100%; width:100%; height:750px;}
@@ -232,7 +233,7 @@
 .area_photo .bx-controls-direction .bx-next{right:0px !important; left:inherit; transform:rotate(-180deg);}
 */
 
-/* ºÐ¾ßº° Ã»³âÁ¤Ã¥ */
+/* ï¿½Ð¾ßºï¿½ Ã»ï¿½ï¿½ï¿½ï¿½Ã¥ */
 .area_policy{margin-top:60px; padding:0 15px; padding-top:40px; border-top:2px solid #000;}
 .area_policy:after{content:""; display:block; clear:both;}
 .area_policy .policy_left{float:left; width:33.3333%; padding-right:6%;}
@@ -262,7 +263,7 @@
 .area_policy_list_item:nth-child(5n) {background-color: #f98066; color:white; }
 */
 
-/* ÇÏ´Ü ¹®ÀÇÀüÈ­ */
+/* ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­ */
 .area_call{position: relative; padding:20px; background-color: #2560a9;}
 .area_call a{display:block; position: relative; left:50%; margin-left:-65px; width:230px; color:#fff !important;}
 .area_call em{display:block; font-size: 18px; letter-spacing: 2.2px; color:#fff;}
@@ -405,7 +406,7 @@
 .designCheck.noText input[type="checkbox"] + label:before,
 .designRadio.noText input[type="radio"] + label:before{top:-1px;}
 
-/* ´Þ·Â */
+/* ï¿½Þ·ï¿½ */
 .area_calendar{position:relative; margin:0 auto; border:1px solid #eee; border-radius: 0 0 4px 4px;}
 .area_calendar:after{content:''; display:block; clear:both;}
 .cal_top{position:relative; margin:10px auto; width:88%; text-align:center; font-size:24px; font-weight: 700; line-height:1.5;}
@@ -456,7 +457,7 @@
 	.area_boxlist > li:nth-child(4n){margin:0 10px 10px 0;}
     .area_boxlist > li:nth-child(3n){margin-right:0;}
 
-    /* Ã¼Å©¹Ú½º¿Í ´Þ·Â Å¬¸¯¾ÈµÇ´Â ¹®Á¦·Î float Á¦°Å
+    /* Ã¼Å©ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Þ·ï¿½ Å¬ï¿½ï¿½ï¿½ÈµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ float ï¿½ï¿½ï¿½ï¿½
 	.area_calendar .calendar_left,
     .area_calendar .calendar_right{float: inherit;; width:100%;}
 	*/

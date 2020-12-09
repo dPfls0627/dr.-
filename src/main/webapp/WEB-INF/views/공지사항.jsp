@@ -73,7 +73,6 @@
 
 </head>
 <body>
-
 <!-- Page Preloder -->
 <div id="preloder">
 	<div class="loader"></div>
@@ -153,13 +152,13 @@
                             <li><a href="shop?type=C">문화공간</a></li>
                         </ul>
                         </li>
-                        <li class="active"><a href="./공지사항.html">커뮤니티</a>
+                               <li class="active"><a href="ntboardlist">커뮤니티</a>
                             <ul class="dropdown">
-                                <li><a href="공지사항?type=news">공지사항</a></li>
-                                <li><a href="자유게시판?type=free">자유게시판</a></li>
-                                <li><a href="사진갤러리?type=Photo">사진갤러리</a></li>
-                                <li><a href="상담게시판?type=question">상담게시판</a></li>
-                                <li><a href="강의동영상?type=vod">강의 동영상</a></li>
+                                <li><a href="ntboardlist">공지사항</a></li>
+                                <li><a href="freeboardlist">자유게시판</a></li>
+                                <li><a href="ptboardlist">사진갤러리</a></li>
+                                <li><a href="dtboardlist">상담게시판</a></li>
+                                <li><a href="vodboardlist">강의 동영상</a></li>
                             </ul>
                         </li>
                         <li><a href="./contact.html">문의</a></li>
@@ -178,11 +177,11 @@
 					<div class="inner">
 						<nav class="lnb lnb_scroll v3">
 							<ul>
-								<li><a href="공지사항?type=news" class="on"><span>공지사항</span></a></li>
-								<li><a href="자유게시판?type=free" ><span>자유게시판</span></a></li>
-								<li><a href="사진갤러리?type=Photo"><span>사진갤러리</span></a></li>
-								<li><a href="상담게시판?type=question" ><span>상담게시판</span></a></li>
-								<li><a href="강의동영상?bbs=vod" ><span>강의 동영상</span></a></li>
+								<li><a href="ntboardlist"class="on"><span>공지사항</span></a></li>
+								<li><a href="freeboardlist" ><span>자유게시판</span></a></li>
+								<li><a href="ptboardlist"><span>사진갤러리</span></a></li>
+								<li><a href="dtboardlist"><span>상담게시판</span></a></li>
+								<li><a href="vodboardlist"><span>강의 동영상</span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -236,24 +235,24 @@
 									</thead>
 									<tbody>
 									
-									<c:forEach var="ntboard" items="${ntboard}" >
+									<c:forEach var="ntboard" items="${boardList}" >
 										<tr>
 											<td class="bbs-list-uid">${ntboard.ntbnumber}</td>
 											<td class="bbs-list-title">
-												<a href="boardview?bnumber=${ntboard.ntbnumber}&page=${paging.page}">
+												<a href="ntboardview?bnumber=${ntboard.ntbnumber}&page=${paging.page}&type=notice">
 													<div class="bbs-cut-strings">
 														${ntboard.ntbtitle}
 													</div>
 													<div class="bbs-mobile-contents">
-														<span class="contents-item">${ntboard.bwriter}</span>
-														<span class="contents-item">${ntboard.bdate}</span>
-														<span class="contents-item">${ntboard.bhits}</span>
+														<span class="contents-item">${ntboard.ntbwriter}</span>
+														<span class="contents-item">${ntboard.ntbdate}</span>
+														<span class="contents-item">${ntboard.ntbhits}</span>
 													</div>
 												</a>
 											</td>
-											<td class="bbs-list-user">${ntboard.bwriter}</td>
-											<td class="bbs-list-date">${ntboard.bdate}</td>
-											<td class="bbs-list-view">${ntboard.bhits}</td>
+											<td class="bbs-list-user">${ntboard.ntbwriter}</td>
+											<td class="bbs-list-date">${ntboard.ntbdate}</td>
+											<td class="bbs-list-view">${ntboard.ntbhits}</td>
 										</tr>
 										</c:forEach>
 									</tbody>
@@ -265,21 +264,40 @@
 
 							<!-- 페이징 시작 -->
 							<div class="apagination">
+							<c:if test="${paging.page<=1}">
+							<a class="btn_first">이전</a>
+							</c:if>
+							<c:if test="${paging.page>1}">
 							<a class="btn_first"
-							href="bbs_listcc98.html?bbs=gongji&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">처음</a>
-							<span>1</span>
-							<a href="bbs_list4b42.html?bbs=gongji&amp;page=2&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">2</a>
-							<a class="btn_last" href="bbs_list4b42.html?bbs=gongji&amp;page=2&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">마지막</a>	
+							href="ntboardlist?page=${paging.page-1}">이전</a>
+							</c:if>
+						   <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+							<c:choose>
+							<c:when test="${i eq paging.page}">
+							<span>${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="ntboardlist?page=${i}">${i}</a>
+							</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							<c:if test="${paging.page>=paging.maxPage}">
+							<a class="btn_last">다음</a>
+							</c:if>
+								<c:if test="${paging.page<paging.maxPage}">
+							<a class="btn_last" href="ntboardlist?page=${paging.page+1}">마지막</a>	
+							</c:if>				
 							</div>
 							<!-- 페이징 끝 -->
-							
 
 						</div>
+						<c:if test="${sessionScope.loginId eq 'admin'}">
 						<div class="bbs-control">
 							<div class="right">
-								<a href="글쓰기.html?Type=free" class="bbs-button">글작성하기</a>
+								<a href="ntboardwritefileform?mid=${sessionScope.loginedId}&page=${paging.page}&type=notice" class="bbs-button">글작성하기</a>
 							</div>
 						</div>
+						</c:if>
 					</div>
 					</div>
 					<!-- E -->

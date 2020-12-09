@@ -12,54 +12,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cake | Template</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <script>
-        function tagAdd(Tagid){
-            $.ajax({
-                type : "post",
-                url : "tagaddajax",
-                data : {"Tagid" : Tagid},
-                dataType : "json",
-                success : function(result){
-                    console.log(result);
-                    console.log(result.mid);
-                    var output = "<table border='1'>";
-                    output += "<tr><th>Tag Name</th></tr>";
-                    output += "<tr>";
-                    output += "<td>"+result.Tagid+"</td>";
-                    output += "</tr>";
-                    output += "</table>";
-                    
-                    $("#tagviewdiv").html(output);
-                },
-                error : function(){
-                    console.log("실패");
-                }
-            });
-        }
-        function tagRemove(Tagid){
-            $.ajax({
-                type : "post",
-                url : "memberviewajax",
-                data : {"Tagid" : Tagid},
-                dataType : "json",
-                success : function(result){
-                    console.log(result);
-                    console.log(result.mid);
-                    var output = "<table border='1'>";
-                    output += "<tr><th>Tag Name</th></tr>";
-                    output += "<tr>";
-                    output += "<td>"+result.Tagid+"</td>";
-                    output += "</tr>";
-                    output += "</table>";
-                    
-                    $("#tagviewdiv").html(output);
-                },
-                error : function(){
-                    console.log("실패");
-                }
-            });
-        }
+    	var arrInput = new Array(0);
+    	var arrInputValue = new Array(0);
+     
+    	function addInput() {
+      		arrInput.push(arrInput.length);
+      		arrInputValue.push("");
+      		display();
+    	}
+     
+    	function display() {
+      		document.getElementById('parah').innerHTML="";
+      		for (intI=0;intI<arrInput.length;intI++) {
+        	document.getElementById('parah').innerHTML+=createInput(arrInput[intI], arrInputValue[intI]);
+      		}
+    	}
+     
+    	function saveValue(intId,strValue) {
+      		arrInputValue[intId]=strValue;
+    	}  
+     
+    	function createInput(id,value) {
+      		return "<input type='text' class='tname' placeholder='해시태그 입력' name='tname'>";
+    	}
+     
+    	function deleteInput() {
+      		if (arrInput.length > 0) { 
+         		arrInput.pop(); 
+         		arrInputValue.pop();
+      		}
+      		display(); 
+   		}
+    
+    	
+    	
+    	
+      	$(document).ready(function(){
+    		$("#tagAdd").click(function(){
+    			//jquery로 버튼태그 클릭했을때 함수를 호출하는 방법
+    			
+    			var tname = $("#tname").val(); //input에 입력한 네임 값 가져오기 
+    			
+    			var tnameList = []; //배열 선언
+    			$("input[name='tname']:text").each(function(i) {
+    		        tnameList.push($(this).val());
+    		    }); // 같은 name값들을 배열에 담음
+    			
+    			var allData = { "tname": tname, "tnameArray": tnameList };
+    			// input에 입력한 네임 값과 선언한 배열을 name/value 형태로 담는다.
+    			
+    			console.log(tname);
+    			
+    			$.ajax({
+    				type :"post",
+    				url : "hashtagwrite",
+    				data : allData,
+    				dataType : "json",
+    				success : function(result){
+    					console.log("해시태그 등록 성공");
+    					alert("해시태그를 등록하였습니다.")
+    					
+    				/*    var output = "<h3>해시태그 목록</h3>";
+    				   output += "<ol>";
+    					//result는 값이 여러개가 들어 있기 때문에 반복문을 돌려줘야 함
+    					for(var i in result){
+    						output += "<li>"+result[i].tname+"</li>";
+    					}
+    					output +="</ol>";
+    					$("#hashtagArea").html(output); */
+    					
+    					//댓글 입력 후 작성자와 내용을 지워주기 위한 코드	
+    					 $("#tname").val("");
+    					$(".tname").val("");
+    				
+    					
+    				},
+    				error : function(){
+    					console.log("해시태그 등록 실패")
+    				}
+    			});
+    		});
+    	});  
+    	
+    function hashtagPop(){
+    	window.open("hashtagpop", "a", "width=700, height=800, left=100, top=50"); 
+    }
+    
+    function reserveCheck(reserveid){
+    	console.log(reserveid);
+    	location.href="reservecheck?reserveid="+reserveid;
+    	
+    /* 	for($i=0; $row=sql_fetch_array($result); $i++) {
+    		   $j = $i + 1;
+    		   echo "<button id='btn".$j."'>";  */
+    }
+    
+    function reserveSearch(){
+     	reservebox.submit(); 
+    }
+    
     </script>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
@@ -79,7 +133,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
 
-    <link rel="stylesheet" type="${pageContext.request.contextPath}/resources/text/css" href="./board/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/board/css/base.css"/>
 </head>
 
 <body>
@@ -93,7 +147,7 @@
   <div class="offcanvas-menu-wrapper">
       <div class="offcanvas__cart">
         <div class="offcanvas__cart__item">
-            <a href="./mypage.html" style="color: black;"><img src="" alt="">마이페이지</a>
+            <a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
         </div>
           <div class="offcanvas__cart__links">
               <a href="#"><img src="resources/img/icon/heart.png" alt=""></a>
@@ -101,13 +155,19 @@
           </div>
       </div>
       <div class="offcanvas__logo">
-          <a href="./index.html"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
+          <a href="index"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
       </div>
       <div id="mobile-menu-wrap"></div>
       <div class="offcanvas__option">
           <ul>
-            <li><a href="./register.html">회원가입</a></li>
-            <li><a href="./login.html">로그인</a></li>
+            <c:if test="${empty sessionScope.loginId}">
+              <li><a href="register">회원가입</a></li>
+              <li><a href="login">로그인</a></li>
+              </c:if>
+              <c:if test="${!empty sessionScope.loginId}">
+              	<li><a href="register">회원가입</a></li>
+              	<li><a href="logout">로그아웃</a></li>
+              </c:if>
           </ul>
       </div>
   </div>
@@ -122,16 +182,22 @@
                     <div class="header__top__inner">
                         <div class="header__top__left">
                             <ul>
-                                <li><a href="./register.html">회원가입</a></li>
-                                <li><a href="./login.html">로그인</a></li>
+                                <c:if test="${empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+             						<li><a href="login">로그인</a></li>
+              					</c:if>
+              					<c:if test="${!empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+              						<li><a href="logout">로그아웃</a></li>
+              					</c:if>
                             </ul>
                         </div>
                           <div class="header__logo">
-                              <a href="./index.html"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
+                              <a href="/"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
                           </div>
                           <div class="header__top__right" style=" margin-top:-17px;">
                             <div class="header__top__right__cart" >
-                                <a href="./mypage.html" style="color: black;"><img src="" alt="">마이페이지</a>
+                                <a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
                             </div>
                               <div class="header__top__right__links">
                                 <div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
@@ -150,28 +216,28 @@
               <div class="col-lg-12">
                   <nav class="header__menu mobile-menu">
                       <ul>
-                          <li><a href="./index.html">홈</a></li>
-                          <li><a href="./Dr.멍이냥.html">소개</a></li>
-                          <li><a href="./hospital.html">병원</a>
-                          <li><a href="./shop.html">스토어</a>
+                          <li><a href="index">홈</a></li>
+                          <li><a href="멍이냥">소개</a></li>
+                          <li><a href="hospital">병원</a>
+                          <li><a href="shop">스토어</a>
                           <ul class="dropdown">
-                              <li><a href="shop.html?type=G">그루밍</a></li>
-                              <li><a href="shop.html?type=H">호텔</a></li>
-                              <li><a href="shop.html?type=C">카페</a></li>
-                              <li><a href="shop.html?type=K">유치원</a></li>
-                              <li><a href="shop.html?type=C">문화공간</a></li>
+                              <li><a href="shop?type=G">그루밍</a></li>
+                              <li><a href="shop?type=H">호텔</a></li>
+                              <li><a href="shop?type=C">카페</a></li>
+                              <li><a href="shop?type=K">유치원</a></li>
+                              <li><a href="shop?type=C">문화공간</a></li>
                           </ul>
                           </li>
-                          <li><a href="./공지사항.html">커뮤니티</a>
+                          <li><a href="공지사항">커뮤니티</a>
                               <ul class="dropdown">
-                                  <li><a href="공지사항.html?type=news">공지사항</a></li>
-                                  <li><a href="자유게시판.html?type=free">자유게시판</a></li>
-                                  <li><a href="사진갤러리.html?type=Photo">사진갤러리</a></li>
-                                  <li><a href="상담게시판.html?type=question">상담게시판</a></li>
-                                  <li><a href="강의동영상.html?type=vod">강의 동영상</a></li>
+                                  <li><a href="공지사항?type=news">공지사항</a></li>
+                                  <li><a href="자유게시판?type=free">자유게시판</a></li>
+                                  <li><a href="사진갤러리?type=Photo">사진갤러리</a></li>
+                                  <li><a href="상담게시판?type=question">상담게시판</a></li>
+                                  <li><a href="강의동영상?type=vod">강의 동영상</a></li>
                               </ul>
                           </li>
-                          <li><a href="./contact.html">문의</a></li>
+                          <li><a href="contact">문의</a></li>
                       </ul>
                   </nav>
               </div>
@@ -191,7 +257,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__links">
-                        <a href="./index.html">Home</a>
+                        <a href="/">Home</a>
                         <span>Admin Page</span>
                     </div>
                 </div>
@@ -211,8 +277,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="col-md-6">
+                <div class="col">
+                    <div class="col">
                         <!-- TABLE NO PADDING -->
                         <div class="panel">
                             <div class="panel-heading">
@@ -222,23 +288,23 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>회원번호</th> <th>ID</th> <th>이름</th>
-                                            <th>별명</th> <th>이메일</th> <th>폰번호</th>
-                                            <th>주소</th> <th>승인</th> <th>삭제</th>
+                                            <th>회원번호</th> <th>ID</th> <th>상호명</th>
+                                            <th>주소</th> <th>이메일</th> <th>사업자번호</th>
+                                            <th>홈페이지</th> <th>승인</th> <th>삭제</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="member" items="${memberList}">
+                                        <c:forEach var="shopMember" items="${sMemList}">
                                             <tr>
-                                                <td>${member.Memberid}</td>
-                                                <td>${member.Mid}</td>
-                                                <td>${member.Mname}</td>
-                                                <td>${member.Mnickname}</td>
-                                                <td>${member.Memail}</td>
-                                                <td>${member.Mphone}</td>
-                                                <td>${member.Maddress}</td>
-                                                <td><button onclick="location.href='memberagree?tid=${member.tid}'" style="width: 150%;">승인</button></td>
-                                                <td><button onclick="location.href='memberdelete?tid=${member.tid}'" style="width: 150%;">삭제</button></td>
+                                            	<td>${shopMember.shopid}</td>
+                                                <td>${shopMember.sid}</td>
+                                                <td>${shopMember.sname}</td>
+                                                <td>${shopMember.saddress}</td>
+                                                <td>${shopMember.semail}</td>
+                                                <td>${shopMember.slicense}</td>
+                                                <td>${shopMember.surl}</td>
+                                                <td><button onclick="location.href='memberloginok?sid=${shopMember.sid}'" style="width: 50px;">승인</button></td>
+                                                <td><button onclick="location.href='shopmemberdelete?sid=${shopMember.sid}'" style="width: 50px;">삭제</button></td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
@@ -254,28 +320,30 @@
     </section>
     <!-- About Section End -->
 
-    <!-- Teg Section Begin -->
+
+
+    <!-- Tag Section Begin -->
     <section class="testimonial spad">
         <div class="container">
             <div class="cart__discount">
                 <h6>태그 추가/삭제</h6>
-                <input type="button" onclick="tagAdd('${tag.Tagid}')" value="태그 추가">
-                <input type="button" onclick="tagRemove('${tag.Tagid}')" value="태그 제거">
-                <form action="#">
-                    <input type="text" placeholder="Tag Input">
-                </form>
+                <input type="button" onclick="addInput();" value="태그추가">
+                <input type="button" onclick="deleteInput();" value="태그제거">
+                <input type="button" id="tagAdd" value="태그저장">
+                <form action="#" method="post" name="hashtagform">
+                    <input type="text" id="tname" name="tname" placeholder="해시태그 입력">
+              	  	<div id="parah"></div>
+              	</form>   	  	
             </div>
-
-            
-
-            <br>
-            
-            <div class="row">
-
-                    
+            <a href="#" onclick="hashtagPop()"><img src="resources/img/sort_ascending_icon_152530.png" width="30">해시태그 목록 조회</a>
+           <!--  <br> -->
         </div>
     </section>
-    <!-- Teg Section End -->
+    <!-- Tag Section End -->
+    
+
+
+
 
     <!-- Team Section Begin -->
     <section class="team spad">
@@ -287,32 +355,42 @@
                                 </div>
                                 <br>
 								<div class="panel-body">
-									<table class="table table-striped">
-                                        <form action="boardsearch" method="get" name="searchform">
-                                            <select id="searchtype" name="searchtype">
-                                                <option value="reserve">예약 대기</option>
-                                                <option value="reservecom">예약 완료</option>
+                                        <form action="reservesearch" method="get" name="reservebox">
+                                            <select id="searchtype" name="searchtype" onchange="reserveSearch()">
+                                                <option value="">전체</option>
+                                                <option value="reserveWait" id="wait">예약 대기</option>
+                                                <option value="reserveCom" id="com">예약 완료</option>
                                             </select>
                                         </form>
                                         <br><br>
-                                            <tr>
-                                                <th>#</th> <th>회원 ID</th> <th>회원 별명</th>
-                                                <th>예약한 날짜</th> <th>시작일</th> <th>종료일</th>
-                                                <th>예약 상태</th>
-                                            </tr>
-                                            <c:forEach var="member" items="${memberList}">
+									<table class="table">
+                                    	<tr>
+                                        	<th>#</th> <th>회원 ID</th> <th>회원 이름</th>
+                                            <th>예약한 날짜</th> <th>시작일</th> <th>종료일</th>
+                                            <th>예약 확인</th>
+                                        </tr>
+                                            <c:forEach var="reserve" items="${reserveList}">
                                                 <tr>
-                                                    <td>${reserve.Resurveid}</td>
-                                                    <td>${reserve.Mid}</td>
-                                                    <td>${reserve.Mnickname}</td>
-                                                    <td>${reserve.Rdate}</td>
-                                                    <td>${reserve.Rstartdate}</td>
-                                                    <td>${reserve.Renddate}</td>
-                                                    <td><button onclick="progressreserve('${member.tid}')" style="width: 150%;">예약 상태</button></td>
+                                                    <td>${reserve.reserveid}</td>
+                                                    <td>${reserve.mid}</td>
+                                                    <td>${reserve.mname}</td> 
+                                                    <td>${reserve.rdate}</td>
+                                                    <td>${reserve.rstartdate}</td>
+                                                    <td>${reserve.renddate}</td>
+                                                    <td>
+                                                    	<c:choose>
+                                                    		<c:when test="${reserve.rstate eq '예약대기'}">
+                                                    			<button onclick="reserveCheck('${reserve.reserveid}')" style="width: 100%;">확인</button>			
+                                                    		</c:when>
+                                                    		<c:otherwise>
+                                                    		    <button onclick="reserveCheckBtn()" style="width: 100%;" disabled>확인완료</button>
+                                                    		</c:otherwise>
+                                                    	</c:choose>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </table>
-								</div>
+									</div>
 							</div>
 							<!-- END TABLE STRIPED -->
 						</div>
@@ -327,8 +405,8 @@
             <div class="row">
                 
             <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="col-md-6">
+                <div class="col">
+                    <div class="col">
                         <!-- TABLE NO PADDING -->
                         <div class="panel">
                             <div class="panel-heading">
@@ -339,22 +417,24 @@
                                     <thead>
                                         <tr>
                                             <th>회원번호</th> <th>ID</th> <th>이름</th>
-                                            <th>별명</th> <th>이메일</th> <th>폰번호</th>
+                                            <th>별명</th> <th>이메일</th> <th>번호</th>
                                             <th>주소</th> <th>삭제</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach var="member" items="${memberList}">
+                                        <c:if test="${member.mid ne 'admin'}">
                                             <tr>
-                                                <td>${member.Memberid}</td>
-                                                <td>${member.Mid}</td>
-                                                <td>${member.Mname}</td>
-                                                <td>${member.Mnickname}</td>
-                                                <td>${member.Memail}</td>
-                                                <td>${member.Mphone}</td>
-                                                <td>${member.Maddress}</td>
-                                                <td><button onclick="location.href='memberdelete?tid=${member.tid}'" style="width: 150%;">삭제</button></td>
+                                                <td>${member.memberid}</td>
+                                                <td>${member.mid}</td>
+                                                <td>${member.mname}</td>
+                                                <td>${member.mnickname}</td>
+                                                <td>${member.memail}</td>
+                                                <td>${member.mphone}</td>
+                                                <td>${member.maddress}</td>
+                                                <td><button onclick="location.href='memberdelete?mid=${member.mid}'" style="width: 50px;">삭제</button></td>
                                             </tr>
+                                        </c:if>
                                         </c:forEach>
                                     </tbody>
                                 </table>

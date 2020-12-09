@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="PTBoard"> 
+	<insert id="boardWriteFile" parameterType="ptboard">
+		INSERT INTO PTBOARD(PTBNUMBER,PTBWRITER,PTBTITLE,PTBCONTENTS,PTBDATE,PTLIKE,PTBHITS)
+			VALUES(SEQ_PTBNUMBER.NEXTVAL,#{ptbwriter},#{ptbtitle},#{ptbcontents},TO_CHAR(SYSDATE, 'YY-MM-DD'),0,0)
+	</insert>
+	<select id="boardList" parameterType="String" resultType="ptboard">
+		SELECT * FROM PTBOARD WHERE PTBWRITER =#{mid} 
+	</select>
+	
+	<select id="boardBhits" resultType="ptboard" >
+		SELECT * FROM PTBOARD ORDER BY PTBHITS DESC
+	</select>
+
+	<update id="boardHits" parameterType="int">
+		UPDATE PTBOARD SET PTBHITS=PTBHITS+1 WHERE PTBNUMBER=#{ptbnumber}
+	</update>
+	<select id="boardView" parameterType="int" resultType="ptboard">
+		SELECT * FROM PTBOARD WHERE PTBNUMBER=#{ptbnumber}
+	</select>
+	
+	<update id="boardUpdate" parameterType="ptboard">
+		UPDATE PTBOARD SET PTBTITLE=#{ptbtitle}, PTBCONTENTS=#{ptbcontents} WHERE PTBNUMBER=#{ptbnumber}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM PTBOARD WHERE PTBNUMBER=#{ptbnumber}
+	</delete>
+	
+	<select id="boardListCount" resultType="int">
+		SELECT COUNT(PTBNUMBER) FROM PTBOARD
+	</select>
+	
+	<select id="boardListPaging" parameterType="page" resultType="ptboard">
+		SELECT * FROM (SELECT B.*, ROW_NUMBER() OVER(ORDER BY PTBNUMBER DESC)
+			AS RN FROM PTBOARD B) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="boardSearch" resultType="ptboard" parameterType="java.util.HashMap">
+		SELECT * FROM PTBOARD 
+			<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="type == 'searchtitle'">
+				WHERE PTBTITLE LIKE '%'||#{word}||'%'
+			</when>
+			<when test="type == 'searchwriter'">
+				WHERE PTBWRITER LIKE '%'||#{word}||'%'
+			</when>
+		</choose>
+	</sql>
+	
+	<select id="boardptlike" resultType="ptboard">
+		SELECT * FROM PTBOARD ORDER BY PTLIKE DESC
+	</select>
+	
+	
+	
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="NTBoard"> 
+	<insert id="boardWriteFile" parameterType="ntboard">
+		INSERT INTO NTBOARD(NTBNUMBER,NTBWRITER,NTBTITLE,NTBCONTENTS,NTBDATE,NTBHITS)
+			VALUES(SEQ_NTBNUMBER.NEXTVAL,#{ntbwriter},#{ntbtitle},#{ntbcontents},TO_CHAR(SYSDATE, 'YY-MM-DD'),0)
+	</insert>
+	<select id="boardList" parameterType="String" resultType="ntboard">
+		SELECT * FROM NTBOARD WHERE NTBWRITER =#{mid} 
+	</select>
+	
+	<select id="boardBhits" resultType="ntboard" >
+		SELECT * FROM NTBOARD ORDER BY NTBHITS DESC
+	</select>
+
+	<update id="boardHits" parameterType="int">
+		UPDATE NTBOARD SET NTBHITS=NTBHITS+1 WHERE NTBNUMBER=#{ntbnumber}
+	</update>
+	<select id="boardView" parameterType="int" resultType="ntboard">
+		SELECT * FROM NTBOARD WHERE NTBNUMBER=#{bnumber}
+	</select>
+	
+	<update id="boardUpdate" parameterType="ntboard">
+		UPDATE NTBOARD SET NTBTITLE=#{ntbtitle}, NTBCONTENTS=#{ntbcontents} WHERE NTBNUMBER=#{ntbnumber}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM NTBOARD WHERE NTBNUMBER=#{ntbnumber}
+	</delete>
+	
+	<select id="ntboardListCount" resultType="int">
+		SELECT COUNT(NTBNUMBER) FROM NTBOARD
+	</select>
+	
+	<select id="ntboardListPaging" parameterType="page" resultType="ntboard">
+		SELECT * FROM (SELECT B.*, ROW_NUMBER() OVER(ORDER BY NTBNUMBER DESC)
+			AS RN FROM NTBOARD B) WHERE RN BETWEEN #{startRow} AND #{endRow}	
+	</select>
+	<select id="boardSearch" resultType="ntboard" parameterType="java.util.HashMap">
+		SELECT * FROM NTBOARD 
+			<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="type == 'searchtitle'">
+				WHERE NTBTITLE LIKE '%'||#{word}||'%'
+			</when>
+			<when test="type == 'searchwriter'">
+				WHERE NTBWRITER LIKE '%'||#{word}||'%'
+			</when>
+		</choose>
+	</sql>
+
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

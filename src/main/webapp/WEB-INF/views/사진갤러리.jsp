@@ -153,13 +153,13 @@
                             <li><a href="shop?type=C">문화공간</a></li>
                         </ul>
                         </li>
-                        <li class="active"><a href="./공지사항.html">커뮤니티</a>
+                             <li class="active"><a href="ntboardlist">커뮤니티</a>
                             <ul class="dropdown">
-                                <li><a href="공지사항?type=news">공지사항</a></li>
-                                <li><a href="자유게시판?type=free">자유게시판</a></li>
-                                <li><a href="사진갤러리?type=Photo">사진갤러리</a></li>
-                                <li><a href="상담게시판?type=question">상담게시판</a></li>
-                                <li><a href="강의동영상?type=vod">강의 동영상</a></li>
+                                <li><a href="ntboardlist">공지사항</a></li>
+                                <li><a href="freeboardlist">자유게시판</a></li>
+                                <li><a href="ptboardlist">사진갤러리</a></li>
+                                <li><a href="dtboardlist">상담게시판</a></li>
+                                <li><a href="vodboardlist">강의 동영상</a></li>
                             </ul>
                         </li>
                         <li><a href="./contact.html">문의</a></li>
@@ -178,11 +178,11 @@
 					<div class="inner">
 						<nav class="lnb lnb_scroll v3">
 							<ul>
-								<li><a href="공지사항?type=news"><span>공지사항</span></a></li>
-								<li><a href="자유게시판?type=free" ><span>자유게시판</span></a></li>
-								<li><a href="사진갤러리?type=Photo" class="on"><span>사진갤러리</span></a></li>
-								<li><a href="상담게시판?type=question" ><span>상담게시판</span></a></li>
-								<li><a href="강의동영상?bbs=vod" ><span>강의 동영상</span></a></li>
+								<li><a href="ntboardlist"><span>공지사항</span></a></li>
+								<li><a href="freeboardlist" ><span>자유게시판</span></a></li>
+								<li><a href="ptboardlist" class="on"><span>사진갤러리</span></a></li>
+								<li><a href="dtboardlist" ><span>상담게시판</span></a></li>
+								<li><a href="vodboardlist" ><span>강의 동영상</span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -225,112 +225,50 @@
 							<!-- 리스트 시작 -->
 							<div class="gall_list">
 							<ul>
-																<li>
+							<c:forEach var="ptboard" items="${boardList}" >
+								<li>
 									<span class="select_btn"></span>
-									<a href="photo_viewbc04.html?bbs=gall&amp;idx=19&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_19_20201104101416_0.jpg" alt="나만의 강점찾기 특강 ★"/></div>
-									<span class="title">나만의 강점찾기 특강 ★</span>
-									<span class="date">2020-10-30</span>
+									<a href="ptboardview?bnumber=${ptboard.ptbnumber}&page=${paging.page}&type=photo">			
+									<div class="gimg">${ptboard.ptbcontents}</div>
+									<span class="title">${ptboard.ptbtitle}</span>
+									<span class="date">${ptboard.ptbdate}</span>
+									<span class="date">좋아요 ${ptboard.ptlike}개</span>
 									</a>
 								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_viewec14.html?bbs=gall&amp;idx=18&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_18_20201104101323_0.jpg" alt="NCS 특강 ★"/></div>
-									<span class="title">NCS 특강 ★</span>
-									<span class="date">2020-10-21</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_view7e46.html?bbs=gall&amp;idx=17&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_17_20201008_1.jpg" alt="면접 이미지메이킹 특강 ★"/></div>
-									<span class="title">면접 이미지메이킹 특강 ★</span>
-									<span class="date">2020-10-07</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_viewaa01.html?bbs=gall&amp;idx=15&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_15_20200831155353_0.jpg" alt="거제청년센터 이룸 청년창업가 재능기부 문화특강"/></div>
-									<span class="title">거제청년센터 이룸 청년창업가 재능기부 문화특강</span>
-									<span class="date">2020-08-24</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_vieweec1.html?bbs=gall&amp;idx=14&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_14_20200831155218_0.jpg" alt="거제시 보조사업자 오리엔테이션 "/></div>
-									<span class="title">거제시 보조사업자 오리엔테이션 </span>
-									<span class="date">2020-08-20</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_view42cc.html?bbs=gall&amp;idx=13&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_13_20200831154914_0.jpg" alt="청년 채용 구인, 구직자 만남의 날"/></div>
-									<span class="title">청년 채용 구인, 구직자 만남의 날</span>
-									<span class="date">2020-08-13</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_viewc148.html?bbs=gall&amp;idx=12&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_12_20200831154753_0.jpg" alt="거제청년센터 이룸 모의면접 특강"/></div>
-									<span class="title">거제청년센터 이룸 모의면접 특강</span>
-									<span class="date">2020-07-31</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_viewa420.html?bbs=gall&amp;idx=11&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_11_20200831154622_0.jpg" alt="거제시 청년, 오픈미팅데이"/></div>
-									<span class="title">거제시 청년, 오픈미팅데이</span>
-									<span class="date">2020-07-23</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_viewded5.html?bbs=gall&amp;idx=10&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_10_20200831154523_0.jpg" alt="거제시 민간청년활동공간 보조사업자 오리엔테이션"/></div>
-									<span class="title">거제시 민간청년활동공간 보조사업자 오리엔테이션</span>
-									<span class="date">2020-07-16</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_view697e.html?bbs=gall&amp;idx=9&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_9_20200831154350_0.jpg" alt="거제청년센터 이룸 취업 준비의 첫걸음"/></div>
-									<span class="title">거제청년센터 이룸 취업 준비의 첫걸음</span>
-									<span class="date">2020-07-06</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_viewef2b.html?bbs=gall&amp;idx=8&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_8_20200831154220_0.jpg" alt="거제시 청년리빙랩 워크숍"/></div>
-									<span class="title">거제시 청년리빙랩 워크숍</span>
-									<span class="date">2020-07-02</span>
-									</a>
-								</li>
-																<li>
-									<span class="select_btn"></span>
-									<a href="photo_view820c.html?bbs=gall&amp;idx=16&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/gall/tmb_data_file_16_20200831170832_7.jpg" alt="거제청년센터 이룸 개소식"/></div>
-									<span class="title">거제청년센터 이룸 개소식</span>
-									<span class="date">2020-07-01</span>
-									</a>
-								</li>
-															</ul>
+										</c:forEach>
+									</ul>
 							</div>
 						
-							<!-- page -->
+					<!-- 페이징 시작 -->
 							<div class="apagination">
-								<a class="btn_first" href="photo_lista8b6.html?bbs=gall&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">처음</a><span>1</span><a href="photo_listb20e.html?bbs=gall&amp;page=2&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">2</a><a class="btn_last" href="photo_listb20e.html?bbs=gall&amp;page=2&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">마지막</a>							</div>
-							<!-- //page -->
+							<c:if test="${paging.page<=1}">
+							<a class="btn_first">이전</a>
+							</c:if>
+							<c:if test="${paging.page>1}">
+							<a class="btn_first"
+							href="ptboardlist?page=${paging.page-1}">이전</a>
+							</c:if>
+						   <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+							<c:choose>
+							<c:when test="${i eq paging.page}">
+							<span>${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="ptboardlist?page=${i}">${i}</a>
+							</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							<c:if test="${paging.page>=paging.maxPage}">
+							<a class="btn_last">다음</a>
+							</c:if>
+								<c:if test="${paging.page<paging.maxPage}">
+							<a class="btn_last" href="ptboardlist?page=${paging.page+1}">마지막</a>	
+							</c:if>				
+							</div>
+							<!-- 페이징 끝 -->
 							<div class="bbs-control">
 								<div class="right">
-									<a href="글쓰기.html?Type=free" class="bbs-button">글작성하기</a>
+									<a href="ptboardwritefileform?mid=${sessionScope.loginedId}&page=${paging.page}&type=photo" class="bbs-button">글작성하기</a>
 								</div>
 							</div>
 						</div>

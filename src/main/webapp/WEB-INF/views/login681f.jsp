@@ -78,26 +78,45 @@
 
 <!-- Offcanvas Menu Begin -->
 <div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-	<div class="offcanvas__cart">
-	  <div class="offcanvas__cart__item">
-		  <a href="./mypage.html" style="color: black;"><img src="" alt="">Mypage</a>
-	  </div>
-		<div class="offcanvas__cart__links">
-			<a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-			<a href="#"><img src="img/icon/heart.png" alt=""></a>
-		</div>
-	</div>
-	<div class="offcanvas__logo">
-		<a href="./index.html"><img src="img/logo.png" alt=""></a>
-	</div>
-	<div id="mobile-menu-wrap"></div>
-	<div class="offcanvas__option">
-		<ul>
-			<li><a href="#">Sign in</a> <span class="arrow_carrot-down"></span></li>
-		</ul>
-	</div>
-</div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__cart">
+          <div class="offcanvas__cart__item">  
+              <c:choose>
+                <c:when test="${empty sessionScope.loginId}">
+                </c:when>
+              	<c:when test="${sessionScope.loginId eq 'admin'}">
+                	<a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
+                </c:when>
+                <c:otherwise>
+                	<a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>                              	
+                </c:otherwise>
+              </c:choose>
+          </div>
+          <div class="header__top__right__links">
+          	<c:if test="${!empty sessionScope.loginId}">	
+         		<div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
+         		<img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
+         	</c:if>
+          	<a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+          </div>
+        </div>
+        <div class="offcanvas__logo">
+            <a href="index"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__option">
+            <ul>
+              <c:if test="${empty sessionScope.loginId}">
+              <li><a href="register">회원가입</a></li>
+              <li><a href="login">로그인</a></li>
+              </c:if>
+              <c:if test="${!empty sessionScope.loginId}">
+              	<li><a href="register">회원가입</a></li>
+              	<li><a href="logout">로그아웃</a></li>
+              </c:if>
+            </ul>
+        </div>
+    </div>
 <!-- Offcanvas Menu End -->
 
 <!-- Header Section Begin -->

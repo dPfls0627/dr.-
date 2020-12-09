@@ -177,13 +177,13 @@
                             <li><a href="shop?type=C">문화공간</a></li>
                         </ul>
                         </li>
-                        <li class="active"><a href="./공지사항.html">커뮤니티</a>
+                        <li class="active"><a href="ntboardlist">커뮤니티</a>
                             <ul class="dropdown">
-                                <li><a href="공지사항?type=news">공지사항</a></li>
-                                <li><a href="자유게시판?type=free">자유게시판</a></li>
-                                <li><a href="사진갤러리?type=Photo">사진갤러리</a></li>
-                                <li><a href="상담게시판?type=question">상담게시판</a></li>
-                                <li><a href="강의동영상?type=vod">강의 동영상</a></li>
+                                <li><a href="ntboardlist">공지사항</a></li>
+                                <li><a href="freeboardlist">자유게시판</a></li>
+                                <li><a href="ptboardlist">사진갤러리</a></li>
+                                <li><a href="dtboardlist">상담게시판</a></li>
+                                <li><a href="vodboardlist">강의 동영상</a></li>
                             </ul>
                         </li>
                         <li><a href="contact">문의</a></li>
@@ -203,11 +203,11 @@
 					<div class="inner">
 						<nav class="lnb lnb_scroll v3">
 							<ul>
-								<li><a href="공지사항?type=news"><span>공지사항</span></a></li>
-								<li><a href="자유게시판?type=free" ><span>자유게시판</span></a></li>
-								<li><a href="사진갤러리?type=Photo"><span>사진갤러리</span></a></li>
-								<li><a href="상담게시판?type=question" ><span>상담게시판</span></a></li>
-								<li><a href="강의동영상?bbs=vod" class="on" ><span>강의 동영상</span></a></li>
+								<li><a href="ntboardlist"><span>공지사항</span></a></li>
+								<li><a href="freeboardlist" ><span>자유게시판</span></a></li>
+								<li><a href="ptboardlist"><span>사진갤러리</span></a></li>
+								<li><a href="dtboardlist"><span>상담게시판</span></a></li>
+								<li><a href="vodboardlist" class="on" ><span>강의 동영상</span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -250,36 +250,53 @@
 							<!-- 리스트 시작 -->
 							<div class="gall_list">
 							<ul>
+							<c:forEach var="vodboard" items="${boardList}" >
 								<li>
 									<span class="select_btn"></span>
-									<a href="vod_view2db1.html?bbs=vod&amp;idx=2&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/vod/pdata_file_2.jpg" alt="거제청년센터 이룸 사용백서"/></div>
-									<span class="title">거제청년센터 이룸 사용백서</span>
-									<span class="date">2020-09-10</span>
+									<a href="vodboardview?bnumber=${vodboard.vodbnumber}&page=${paging.page}&type=vod">			
+									<div class="gimg">{vodboard.vodcontents}</div>
+									<span class="title">${vodboard.vodbtitle}</span>
+									<span class="date">${vodboard.vodbdate}</span>
 									</a>
 								</li>
-									<li>
-									<span class="select_btn"></span>
-									<a href="vod_view59e5.html?bbs=vod&amp;idx=1&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">			
-									<div class="gimg"><img src="../upload/bbs/vod/pdata_file_1.jpg" alt="거제도 청년의 꿈과 희망은 일룸이 아닌 &#039;이룸&#039;(@거제점빵 )"/></div>
-									<span class="title">거제도 청년의 꿈과 희망은 일룸이 아닌 &#039;이룸&#039;(@거제점빵 )</span>
-									<span class="date">2020-08-12</span>
-									</a>
-								</li>
+							</c:forEach>	
 									</ul>
 							</div>
-
 							<div style="clear:both;"></div>
-
-							<!-- 페이징 시작 -->
+				<!-- 페이징 시작 -->
 							<div class="apagination">
-								<a class="btn_first" href="vod_list061b.html?bbs=vod&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">처음</a><span>1</span><a class="btn_last" href="vod_list061b.html?bbs=vod&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">마지막</a>							</div>
-									<!-- 페이징 끝 -->
+							<c:if test="${paging.page<=1}">
+							<a class="btn_first">이전</a>
+							</c:if>
+							<c:if test="${paging.page>1}">
+							<a class="btn_first"
+							href="vodboardlist?page=${paging.page-1}">이전</a>
+							</c:if>
+						   <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+							<c:choose>
+							<c:when test="${i eq paging.page}">
+							<span>${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="vodboardlist?page=${i}">${i}</a>
+							</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							<c:if test="${paging.page>=paging.maxPage}">
+							<a class="btn_last">다음</a>
+							</c:if>
+								<c:if test="${paging.page<paging.maxPage}">
+							<a class="btn_last" href="vodboardlist?page=${paging.page+1}">마지막</a>	
+							</c:if>				
+							</div>
+							<!-- 페이징 끝 -->
+									<c:if test="${sessionScope.loginId eq 'admin'}">
 									<div class="bbs-control">
 										<div class="right">
-											<a href="글쓰기.html?Type=free" class="bbs-button">글작성하기</a>
+											<a href="vodboardwritefileform?mid=${sessionScope.loginedId}&page=${paging.page}&type=vod" class="bbs-button">글작성하기</a>
 										</div>
 									</div>
+									</c:if>
 								</div>
 							</div>
 							<!-- E -->

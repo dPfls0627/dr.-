@@ -4,9 +4,16 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.yerin.pet.dto.MemberDTO" alias="member"/>
-		<typeAlias type="com.yerin.pet.dto.BoardDTO" alias="board"/>
+		<typeAlias alias="shopMember" type="com.yerin.pet.dto.ShopMemberDTO"/>
+ 		<typeAlias alias="hashtag" type="com.yerin.pet.dto.HashtagDTO"/>
+ 		<typeAlias alias="reserve" type="com.yerin.pet.dto.ReserveDTO"/>
+		<typeAlias type="com.yerin.pet.dto.PTBoardDTO" alias="ptboard"/>
 		<typeAlias type="com.yerin.pet.dto.NTBoardDTO" alias="ntboard"/>
+		<typeAlias type="com.yerin.pet.dto.DTBoardDTO" alias="dtboard"/>
+		<typeAlias type="com.yerin.pet.dto.FREEBoardDTO" alias="freeboard"/>
+		<typeAlias type="com.yerin.pet.dto.VODBoardDTO" alias="vodboard"/>
 		<typeAlias type="com.yerin.pet.dto.PageDTO" alias="page"/>
 		<typeAlias type="com.yerin.pet.dto.CommentDTO" alias="comment"/>
+		<typeAlias type="com.yerin.pet.dto.ProductDTO" alias="product"/>
 	</typeAliases>
 </configuration>

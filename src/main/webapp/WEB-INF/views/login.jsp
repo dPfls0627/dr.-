@@ -16,13 +16,6 @@
     <meta name="format-detection" content="telephone=no" />
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179037619-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-179037619-1');
-	</script>
 
 
 	 <!-- Google Font -->
@@ -58,7 +51,6 @@
      <script type="text/javascript" src="${pageContext.request.contextPath}/resources/board/js/jquery.bxslider.js"></script>
      <script type="text/javascript" src="${pageContext.request.contextPath}/resources/board/js/jquery-ui.js"></script>
      <script type="text/javascript" src="${pageContext.request.contextPath}/resources/board/js/custom.js"></script>
-     <script src="https://apis.google.com/js/platform.js" async defer></script>
       <!-- Global site tag (gtag.js) - Google Analytics -->
  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179037619-1"></script>
  <script>
@@ -72,92 +64,83 @@
 </head>
 <body>
 
-
-
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__cart">
-      <div class="offcanvas__cart__item">
-          <a href="./mypage.html" style="color: black;"><img src="" alt="">마이페이지</a>
-      </div>
-        <div class="offcanvas__cart__links">
-            <a href="#"><img src="resources/img/icon/heart.png" alt=""></a>
-            <a href="#" class="search-switch"><img src="resources/img/icon/search.png" alt=""></a>
-        </div>
-    </div>
-    <div class="offcanvas__logo">
-        <a href="./index.html"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__option">
-        <ul>
-          <li><a href="./register.html">회원가입</a></li>
-          <li><a href="./login.html">로그인</a></li>
-        </ul>
-    </div>
-</div>
-<!-- Offcanvas Menu End -->
-
 <!-- Header Section Begin -->
 <header class="header">
-  <div class="header__top">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="header__top__inner">
-                      <div class="header__top__left">
-                          <ul>
-                              <li><a href="./register.html">회원가입</a></li>
-                              <li><a href="./login.html">로그인</a></li>
-                          </ul>
-                      </div>
-                        <div class="header__logo">
-                            <a href="./index.html"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
-                        </div>
-                        <div class="header__top__right" style=" margin-top:-17px;">
-                          <div class="header__top__right__cart" >
-                              <a href="./mypage.html" style="color: black;"><img src="" alt="">마이페이지</a>
+      <div class="header__top">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="header__top__inner">
+                          <div class="header__top__left">
+                              <ul>
+                              	<c:if test="${empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+             						<li><a href="login">로그인</a></li>
+              					</c:if>
+              					<c:if test="${!empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+              						<li><a href="logout">로그아웃</a></li>
+              					</c:if>
+                              </ul>
                           </div>
-                            <div class="header__top__right__links">
-                              <div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
-                              <img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
-                              <a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+                            <div class="header__logo">
+                                <a href="index"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
+                            </div>
+                            <div class="header__top__right" style=" margin-top:-17px;">
+                              <div class="header__top__right__cart" >
+                              	<c:choose>
+                					<c:when test="${empty sessionScope.loginId}">
+                					</c:when>
+              						<c:when test="${sessionScope.loginId eq 'admin'}">
+                						<a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
+               					 	</c:when>
+                					<c:otherwise>
+                						<a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>                              	
+                					</c:otherwise>
+              					</c:choose>
+                              	
+                              </div>
+                                <div class="header__top__right__links">
+                                	<c:if test="${!empty sessionScope.loginId}">	
+                                  		<div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
+                                  		<img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
+                                	</c:if>
+                                  	<a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+               
             </div>
-            <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li><a href="cafe-main/index.html">홈</a></li>
-                        <li><a href="./Dr.멍이냥.html">소개</a></li>
-                        <li><a href="./hospital.html">병원</a>
-                        <li><a href="./shop.html">스토어</a>
+                        <li><a href="index">홈</a></li>
+                        <li><a href="멍이냥">소개</a></li>
+                        <li><a href="hospital">병원</a>
+                        <li><a href="shop">스토어</a>
                         <ul class="dropdown">
-                            <li><a href="shop.html?type=G">그루밍</a></li>
-                            <li><a href="shop.html?type=H">호텔</a></li>
-                            <li><a href="shop.html?type=C">카페</a></li>
-                            <li><a href="shop.html?type=K">유치원</a></li>
-                            <li><a href="shop.html?type=C">문화공간</a></li>
+                            <li><a href="shop?type=G">그루밍</a></li>
+                            <li><a href="shop?type=H">호텔</a></li>
+                            <li><a href="shop?type=C">카페</a></li>
+                            <li><a href="shop?type=K">유치원</a></li>
+                            <li><a href="shop?type=C">문화공간</a></li>
                         </ul>
                         </li>
-                        <li><a href="./공지사항.html">커뮤니티</a>
+                        <li><a href="공지사항">커뮤니티</a>
                             <ul class="dropdown">
-                                <li><a href="공지사항.html?type=news">공지사항</a></li>
-                                <li><a href="자유게시판.html?type=free">자유게시판</a></li>
-                                <li><a href="사진갤러리.html?type=Photo">사진갤러리</a></li>
-                                <li><a href="상담게시판.html?type=question">상담게시판</a></li>
-                                <li><a href="강의동영상.html?type=vod">강의 동영상</a></li>
+                                <li><a href="공지사항?type=news">공지사항</a></li>
+                                <li><a href="자유게시판?type=free">자유게시판</a></li>
+                                <li><a href="사진갤러리?type=Photo">사진갤러리</a></li>
+                                <li><a href="상담게시판?type=question">상담게시판</a></li>
+                                <li><a href="강의동영상?type=vod">강의 동영상</a></li>
                             </ul>
                         </li>
-                        <li><a href="./contact.html">문의</a></li>
+                        <li><a href="contact">문의</a></li>
                     </ul>
                 </nav>
             </div>
@@ -166,16 +149,17 @@
 </header>
 <!-- Header Section End -->
 
+
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member.css"/>
 		<div class="inr">
 			<!-- visual -->
-			이미지 넣을 곳!
+			<div class="area_subVisual">
 				<!-- visual-->
 				<div class="subg v6"></div>
 				<!-- location -->
 				<!-- title + location -->
 				<div class="inner">
-					<div class="visual_title"></div>
+					<div class="visual_title">
 						<div class="box_title">
 							<h2 class="sub_tit iropke">회원 로그인</h2>
 							<p>로그인</p>
@@ -183,6 +167,7 @@
 					</div>
 				</div>
 			</div>
+			
 			
 			<!-- lnb -->
 			<div class="area_lnb_wrap">
@@ -208,32 +193,30 @@
 
 				<h3>로그인</h3>
 
-				<form name="myForm" id="myForm" action="http://www.geojeyouth.com/web/cfg/login" method="post" autocomplete="off" onSubmit="return sendit()">
-				<input type="hidden" name="turl" value=>
-				<div class="login_container">
-					<h1>Login</h1>
-					<div class="login_top">
-						<ul>
-							<li><input type="text" name="uids" id="uids" class="input_txt" placeholder="아이디를 입력해주세요."></li>
-							<li><input type="password" name="upws" id="upws" class="input_txt" placeholder="비밀번호를 입력해주세요."></li>
-						</ul>
-						<input type="submit" class="btn-sumit" value="로그인">
-					
-					</div>
+				<form name="myForm" id="myForm" action="memberlogin" method="post" autocomplete="off" onSubmit="return sendit()">
+					<input type="hidden" name="turl" value=>
+					<div class="login_container">
+						<h1>Login</h1>
+						<div class="login_top">
+							<input type=radio name="radio" value="일반" id="uradio" checked="checked">일반 로그인
+							<input type=radio name="radio" value="업체" id="uradio">업체 로그인	
+							<ul>
+								<li><input type="text" name="id" id="uid" class="input_txt" placeholder="아이디를 입력해주세요."></li>
+								<li><input type="password" name="pw" id="upws" class="input_txt" placeholder="비밀번호를 입력해주세요."></li>
+							</ul>
+							<input type="submit" class="btn-sumit" value="로그인">
+						</div>
 
 					<div class="login_bottom">
 						<ul>
 							<li>카카오 |</li>
 							<li>네이버 |</li>
 							<li>페이스북 |</li>
-							<li>
-			<div id="googleLoginBtn" style="cursor: pointer">
-			<img id="googleLoginImg" src="resources/img/btn_google_signin_light_pressed_web.png"></div>
-						</li>
+							<li>구글|</li>
 						</ul>
 					</div>
 
-				</div>
+					</div>
 				</form>
 
 
@@ -283,9 +266,9 @@
  
     function sendit() {
         var frm = document.myForm;
-        if (!frm.uids.value) { //아이디를 입력하지 않으면.
+        if (!frm.uid.value) { //아이디를 입력하지 않으면.
             alert("아이디를 입력 해주세요!");
-            frm.uids.focus();
+            frm.uid.focus();
             return false;
         }
         if (!frm.upws.value) { //패스워드를 입력하지 않으면.
@@ -294,11 +277,11 @@
             return false;
         }
  
-        if (document.myForm.uidsave.checked == true) { // 아이디 저장을 체크 하였을때
+     /*    if (document.myForm.uidsave.checked == true) { // 아이디 저장을 체크 하였을때
             setCookie("uid", document.myForm.uids.value, 7); //쿠키이름을 id로 아이디입력필드값을 7일동안 저장
         } else { // 아이디 저장을 체크 하지 않았을때
             setCookie("uid", document.myForm.uids.value, 0); //날짜를 0으로 저장하여 쿠키삭제
-        }
+        } */
  
         document.myForm.submit(); //유효성 검사가 통과되면 서버로 전송.
  
@@ -395,13 +378,4 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.nicescroll.min.js"></script>
 <!-- <script src="js/main.js"></script> -->
 </body>
-<script>
- 	const onClickGoogleLogin = (e) => {
- 		window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=305365052721-2km6is361ibokos868nv45f7kihedras.apps.googleusercontent.com&redirect_uri=http://localhost:8086/yerin/google/auth&response_type=code&scope=email%20profile%20openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.file&access_type=offline")
- 	}
-	
-	const googleLoginBtn = document.getElementById("googleLoginBtn");
-	googleLoginBtn.addEventListener("click", onClickGoogleLogin) 
-</script>
-
 </html>

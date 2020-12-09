@@ -6,10 +6,10 @@
 <html lang="UTF-8">
 
 <!-- Mirrored from www.geojeyouth.com/web/register_form by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 Nov 2020 15:22:40 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack --><!-- <meta http-equiv="content-type" content="text/html;charset=UTF-8" /> --><!-- /Added by HTTrack -->
 <head>
 	<meta charset="UTF-8">
-		<title>회원가입 | 거제청년센터 이룸 공식사이트</title>
+	<title>회원가입 | 거제청년센터 이룸 공식사이트</title>
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
@@ -68,98 +68,67 @@ rel="stylesheet">
   
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.12.2.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.js"></script>  
-  
+ <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179037619-1"></script> 
 </head>
 <body>
     
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__cart">
-      <div class="offcanvas__cart__item">
-          <a href="./mypage.html" style="color: black;">< src="" alt="">마이페이지</a>
-      </div>
-        <div class="offcanvas__cart__links">
-            <a href="#"><img src="resources/img/icon/heart.png" alt=""></a>
-            <a href="#" class="search-switch"><img src="resources/img/icon/search.png" alt=""></a>
-        </div>
-    </div>
-    <div class="offcanvas__logo">
-        <a href="./index.html"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__option">
-        <ul>
-          <li><a href="./register.html">회원가입</a></li>
-          <li><a href="./login.html">로그인</a></li>
-        </ul>
-    </div>
-</div>
-
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__cart">
-      <div class="offcanvas__cart__item">
-          <a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>
-      </div>
-        <div class="offcanvas__cart__links">
-            <a href="#"><img src="resources/img/icon/heart.png" alt=""></a>
-            <a href="#" class="search-switch"><img src="resources/img/icon/search.png" alt=""></a>
-        </div>
-    </div>
-    <div class="offcanvas__logo">
-        <a href="index"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__option">
-        <ul>
-          <li><a href="register">회원가입</a></li>
-          <li><a href="login">로그인</a></li>
-        </ul>
-    </div>
-</div>
-<!-- Offcanvas Menu End -->
-
 <!-- Header Section Begin -->
 <header class="header">
-  <div class="header__top">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="header__top__inner">
-                      <div class="header__top__left">
-                          <ul>
-                              <li><a href="register">회원가입</a></li>
-                              <li><a href="login">로그인</a></li>
-                          </ul>
-                      </div>
-                        <div class="header__logo">
-                            <a href="index"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
-                        </div>
-                        <div class="header__top__right" style=" margin-top:-17px;">
-                          <div class="header__top__right__cart" >
-                              <a href="./mypage.html" style="color: black;"><img src="" alt="">마이페이지</a>
+      <div class="header__top">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="header__top__inner">
+                          <div class="header__top__left">
+                              <ul>
+                              	<c:if test="${empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+             						<li><a href="login">로그인</a></li>
+              					</c:if>
+              					<c:if test="${!empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+              						<li><a href="logout">로그아웃</a></li>
+              					</c:if>
+                              </ul>
                           </div>
-                            <div class="header__top__right__links">
-                              <div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
-                              <img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
-                              <a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+                            <div class="header__logo">
+                                <a href="index"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
+                            </div>
+                            <div class="header__top__right" style=" margin-top:-17px;">
+                              <div class="header__top__right__cart" >
+                              	<c:choose>
+                					<c:when test="${empty sessionScope.loginId}">
+                					</c:when>
+              						<c:when test="${sessionScope.loginId eq 'admin'}">
+                						<a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
+               					 	</c:when>
+                					<c:otherwise>
+                						<a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>                              	
+                					</c:otherwise>
+              					</c:choose>
+                              	
+                              </div>
+                                <div class="header__top__right__links">
+                                	<c:if test="${!empty sessionScope.loginId}">	
+                                  		<div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
+                                  		<img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
+                                	</c:if>
+                                  	<a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
-            <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <nav class="header__menu mobile-menu">
                     <ul>
                         <li><a href="index">홈</a></li>
-                        <li><a href="Dr.멍이냥">소개</a></li>
+                        <li><a href="멍이냥">소개</a></li>
                         <li><a href="hospital">병원</a>
                         <li><a href="shop">스토어</a>
                         <ul class="dropdown">
@@ -193,7 +162,6 @@ rel="stylesheet">
 
 
 
-
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member.css"/>
 		<div class="inr">
 			<!-- visual -->
@@ -206,7 +174,7 @@ rel="stylesheet">
 					<div class="visual_title">
 						<div class="box_title">
 							<h2 class="sub_tit iropke">회원가입</h2>
-							<p>회원가입</p>
+							<p>일반회원가입</p>
 						</div>
 					</div>
 				</div>
@@ -218,9 +186,9 @@ rel="stylesheet">
 					<div class="inner">
 						<nav class="lnb lnb_scroll v3">
 							<ul>
-								<li><a href="login.html"><span>로그인</span></a></li>
-								<li><a href="find.html"><span>아이디/비밀번호 찾기</span></a></li>
-								<li><a href="register.html" class="on"><span>회원가입</span></a></li>
+								<li><a href="login"><span>로그인</span></a></li>
+								<li><a href="find"><span>아이디/비밀번호 찾기</span></a></li>
+								<li><a href="register" class="on"><span>회원가입</span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -242,39 +210,45 @@ rel="stylesheet">
 					</ul>
 
 					<p>* 필수입력정보</p>
-					<form name="myForm" id="myForm" method="post" action="http://www.geojeyouth.com/web/register_form.geoje" enctype="multipart/form-data" class="form-inline" autocomplete="off">
-					<input type="hidden" name="mode" value="up">
+					<form name="myForm" id="myForm" method="post" action="memberjoin" class="form-inline" autocomplete="off">
+					<!-- <input type="hidden" name="mode" value="up"> -->
 					<div class="register_container_form">
 						<ul>
 							<li>
 								<span class="fm_list">아이디 <b class="blgrTxt">*</b></span>
 								<span class="fm_txt">
-									<input type="text" name="uids" id="uids" class="input_txt" placeholder="4자이상 20자이하">
+									<input type="text" name="mid" id="uids" class="input_txt" placeholder="4자이상 20자이하">
 									<button type="button" class="btn-basic" onClick="chk_id();">중복조회</button>
 								</span>
 							</li>
 							<li>
 								<span class="fm_list">비밀번호 <b class="blgrTxt">*</b></span>
 								<span class="fm_txt">
-									<input type="password" name="upws" id="upws" class="input_txt ng" placeholder="8자이상 50자이하 문자+숫자+특수기호로 조합해주세요.">
+									<input type="password" name="mpassword" id="upws" class="input_txt ng" placeholder="8자이상 50자이하 문자+숫자+특수기호로 조합해주세요.">
 								</span>
 							</li>
 							<li>
 								<span class="fm_list">비밀번호확인 <b class="blgrTxt">*</b></span>
 								<span class="fm_txt">
-									<input type="password" name="upws_chk" id="upws_chk" class="input_txt ng">
+									<input type="password" name="" id="upws_chk" class="input_txt ng">
 								</span>
 							</li>
 							<li>
 								<span class="fm_list">이름 <b class="blgrTxt">*</b></span>
 								<span class="fm_txt">
-									<input type="text" name="unames" id="unames" class="input_txt">
+									<input type="text" name="mname" id="unames" class="input_txt">
+								</span>
+							</li>
+							<li>
+								<span class="fm_list">닉네임<b class="blgrTxt">*</b></span>
+								<span class="fm_txt">
+									<input type="text" name="mnickname" id="unicknames" class="input_txt">
 								</span>
 							</li>
 							<li>
 								<span class="fm_list">생년월일 <b class="blgrTxt">*</b></span>
 								<span class="fm_txt inauto">
-									<select name="uyear" id="uyear" class="input_txt">
+									<select name="mbirth" id="uyear" class="input_txt">
 										<option value="">--</option>
 																				<option value="2020">2020</option>
 																				<option value="2019">2019</option>
@@ -388,7 +362,7 @@ rel="stylesheet">
 																				<option value="1911">1911</option>
 																				<option value="1910">1910</option>
 																			</select> 년
-									<select name="umonth" id="umonth" class="input_txt">
+									 <select name="" id="umonth" class="input_txt">
 										<option value="">-</option>
 										<option value="01">01</option>
 										<option value="02">02</option>
@@ -403,7 +377,7 @@ rel="stylesheet">
 										<option value="11">11</option>
 										<option value="12">12</option>
 									</select> 월 
-									<select name="uday" id="uday" class="input_txt">
+									<select name="" id="uday" class="input_txt">
 										<option value="">-</option>
 										<option value="01">01</option>
 										<option value="02">02</option>
@@ -436,35 +410,35 @@ rel="stylesheet">
 										<option value="29">29</option>
 										<option value="30">30</option>
 										<option value="31">31</option>
-									</select> 일
+									</select> 일 
 								</span>
 							</li>
 							<li>
 								<span class="fm_list">휴대폰 <b class="blgrTxt">*</b></span>
 								<span class="fm_txt">
-									<input type="text" name="ucell" id="ucell" class="input_txt" placeholder="010-9999-9999 형식을 취해주세요.">
+									<input type="text" name="mphone" id="ucell" class="input_txt" placeholder="010-9999-9999 형식을 취해주세요.">
 								</span>
 							</li>
 							<li>
 								<span class="fm_list">이메일 <b class="blgrTxt">*</b></span>
 								<span class="fm_txt">
-									<input type="text" name="umail" id="umail" class="input_txt" style="min-width:60%;" placeholder="abc@abc.com 형식을 취해주세요.">
+									<input type="text" name="memail" id="umail" class="input_txt" style="min-width:60%;" placeholder="abc@abc.com 형식을 취해주세요.">
 								</span>
 							</li>
 							<li>
 								<span class="fm_list">주소 <b class="blgrTxt">*</b></span>
 								<span class="fm_txt inauto">
-									<input type="text" name="upost" id="upost" class="input_txt postcodify_postcode5" style="width:25%; min-width:25%;">
+									<input type="text" name="" id="upost" class="input_txt postcodify_postcode5" style="width:25%; min-width:25%;">
 									<button type="button" class="btn-basic" id="postcodify_search_button">우편번호 검색</button><br>
-									<input type="text" name="uadd" id="uadd" class="input_txt input_txt2 postcodify_address" style="min-width:80%;"><br>
-									<input type="text" name="uadd2" id="uadd2" class="input_txt postcodify_details" style="min-width:80%;"> 나머지주소
+									<input type="text" name="maddress" id="uadd" class="input_txt input_txt2 postcodify_address" style="min-width:80%;"><br>
+									<input type="text" name="" id="uadd2" class="input_txt postcodify_details" style="min-width:80%;"> 나머지주소
 								</span>
 							</li>
 							<li>
 								<span class="fm_list">이메일 수신</span>
 								<span class="fm_txt">
 									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" name="mail_in" id="mail_in" value="Y" style="width:22px;height:22px;" checked="checked">
+										<input type="checkbox" class="custom-control-input" name="" id="mail_in" value="Y" style="width:22px;height:22px;" checked="checked">
 										<label class="custom-control-label" for="pri" style="font-size:17px;font-weight:400;vertical-align:bottom;"> 이메일 수신에 동의합니다.</label>
 									</div>
 								</span>
@@ -473,7 +447,7 @@ rel="stylesheet">
 								<span class="fm_list">SMS 수신</span>
 								<span class="fm_txt">
 									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" name="sms_in" id="sms_in" value="Y" style="width:22px;height:22px;" checked="checked">
+										<input type="checkbox" class="custom-control-input" name="" id="sms_in" value="Y" style="width:22px;height:22px;" checked="checked">
 										<label class="custom-control-label" for="pri" style="font-size:17px;font-weight:400;vertical-align:bottom;"> SMS 수신에 동의합니다.</label>
 									</div>
 								</span>
@@ -484,7 +458,7 @@ rel="stylesheet">
 					<div class="register_btn">
 						<ul>
 							<li><span class="btn-sumit" style="cursor:pointer;" onClick="sendit();">회원가입</span></li>
-							<li><a href="index.html" style="color:#fff !important;">취소</a></li>
+							<li><a href="index" style="color:#fff !important;">취소</a></li>
 						</ul>
 					</div>
 					</form>
@@ -505,25 +479,38 @@ rel="stylesheet">
 	function go_url(i) {
 		location.href = i;
 	}
+	
+	
 	function chk_id() {
 	  var cid = $("#uids").val();
+	  
 	  if(!cid) { 
 		alert('아이디를 입력해주세요.');
 		$("#uids").focus();
 		return false;
+	  }else{
+	  	var id = document.getElementById("uids").value;
+	  	console.log(id);
+		$.ajax({
+			type : "post",
+			url : "idoverlap1",
+			data : {"mid" : id},
+			dataType : "text",
+			success : function(result){
+				if(result=="OK"){
+					alert("사용 가능한 아이디입니다.");
+				}else {
+					alert("이미 사용중인 아이디입니다.");
+				}
+			},
+			error : function(){
+				alert("ajax실패");
+			}
+		});
 	  }
-	  $.ajax({
-		type: "POST",
-		url: "./load/chk_id.geoje",
-		data: "cid="+cid,
-		contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-		async:  false,
-		success: function(result) {
-			alert(result);
-			$("#uids").focus();
-		}
-	  });
 	}
+	
+	
 	function sendit() {
 		
 		//oEditors.getById["editor1"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
@@ -593,12 +580,17 @@ rel="stylesheet">
 			frm.unames.focus();
 			return false;
 		}
+		if (!frm.unicknames.value) {
+			alert("별명을 입력해주세요!");
+			frm.unicknames.focus();
+			return false;
+		}
 		if (!frm.uyear.value) {
 			alert("태어나신 년도를 선택해주세요!");
 			frm.uyear.focus();
 			return false;
 		}
-		if (!frm.umonth.value) {
+		/* if (!frm.umonth.value) {
 			alert("태어나신 월을 선택해주세요!");
 			frm.umonth.focus();
 			return false;
@@ -607,7 +599,7 @@ rel="stylesheet">
 			alert("태어나신 날짜를 선택해주세요!");
 			frm.uday.focus();
 			return false;
-		}
+		} */
 		if (!frm.ucell.value) {
 			alert("휴대폰 번호를 입력해주세요!");
 			frm.ucell.focus();

@@ -36,7 +36,16 @@
 
   <script>
     function updatePop(){
-      window.open("memberupdateform", "a", "width=700, height=800, left=100, top=50"); 
+      window.open("memberupdate?mid=${sessionScope.loginId}", "a", "width=700, height=800, left=100, top=50"); 
+    }
+    
+    function memberOut(){
+    	if (confirm("정말 탈퇴하시겠습니까?") == true){
+    	    location.href="memberout?mid=${sessionScope.loginId}";
+    	}else{  
+    	    return;
+
+    	}
     }
   </script>
   
@@ -69,7 +78,7 @@
     <div class="offcanvas__option">
         <ul>
           <li><a href="register">회원가입</a></li>
-          <li><a href="login">로그인</a></li>
+          <li><a href="logout">로그아웃</a></li>
         </ul>
     </div>
 </div>
@@ -85,7 +94,7 @@
                       <div class="header__top__left">
                           <ul>
                               <li><a href="register">회원가입</a></li>
-                              <li><a href="login">로그인</a></li>
+                              <li><a href="logout">로그아웃</a></li>
                           </ul>
                       </div>
                         <div class="header__logo">
@@ -153,7 +162,16 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__links">
-                        <a href="#" onclick="updatePop()" style="color: rgba(99, 98, 96, 0.692);"><img src="resources/img/account_edit_icon_135995.png" width="30">내 정보 수정</a>
+                        <c:if test="${sessionScope.type eq 1}">
+                        	<a href="#" onclick="updatePop()" style="color: rgba(99, 98, 96, 0.692);">
+                        		<img src="resources/img/account_edit_icon_135995.png" width="30">내 정보 수정
+                        	</a>
+                        </c:if>
+                        <c:if test="${sessionScope.type eq 2}">
+                        	<a href="#" onclick="updatePop()" style="color: rgba(99, 98, 96, 0.692);">
+                        		<img src="resources/img/account_edit_icon_135995.png" width="30">업체 정보 수정
+                        	</a>
+                        </c:if>
                         <span>Mypage</span>
                     </div>
                 </div>
@@ -162,6 +180,7 @@
     </div>
     <!-- Breadcrumb End -->
 
+<c:if test="${sessionScope.type eq 1}">
     <div class="product__details__tab">
       <div class="col-lg-12">
           <ul class="nav nav-tabs" role="tablist">
@@ -221,10 +240,30 @@
             </div>
         </div>
         <div class="blog__details__comment">
-          <h5>01 Reserved List</h5>
-          <h5>02 Reserved List</h5>
-          <h5>03 Reserved List</h5>
-          <h5>04 Reserved List</h5>
+        	<table>
+        		<tr>
+        			<th>업체명</th>
+        			<th>업체URL</th>
+        			<th>예약날짜</th>
+        			<th>예약시작일</th>
+        			<th>예약종료일</th>
+        			<th>예약시간</th>
+        			<th>예약상태</th>
+        			<th>삭제</th>
+        		</tr>
+        		<c:forEach var="mReserveList" items="${mReserveList}">
+          			<tr>
+          				<td>${mReserveList.sname}</td>
+          				<td>${mReserveList.surl}</td>
+          				<td>${mReserveList.rdate}</td>
+          				<td>${mReserveList.rstartdate}</td>
+          				<td>${mReserveList.renddate}</td>
+          				<td>${mReserveList.rtime}</td>
+          				<td>${mReserveList.rstate}</td>
+          				<td><a href="memberreservedelete?reserveid=${mReserveList.reserveid}"><img src="resources/img/delete.png" width="25"></a></td>
+          			</tr>
+        		</c:forEach>
+        	</table>
        </div>
     </div>
 </section>
@@ -354,25 +393,38 @@
        </div>
     </div>
 </section>
+
+<section class="class-page spad">
+	<div style="margin-left:46%;">
+   		<button onclick="memberOut()"; class="site-btn">회원 탈퇴하기</button>
+	</div>
+</section>
+</c:if>
 <!-- Testimonial Section End -->
 
+
+
 <!-- Shop Login Begin -->
+<c:if test="${sessionScope.type eq 2}">
 <section class="class-page spad">
   <div class="container">
       <div class="row">
-          <div class="col-lg-4">
+          <div class="col">
               <div class="class__sidebar">
                   <h5>Product registration</h5>
-                  <form action="#" method="POST" enctype="multipart/form-data">
+                  <form action="productregistration" method="post" enctype="multipart/form-data">
                       <input type="text" name ="pname" placeholder="업체 이름">
                       <select name="ptype" id="ptype">
-                        <option value="">병원</option>
-                        <option value="">호텔</option>
-                        <option value="">미용</option>
-                        <option value="">그루밍</option>
+                        <option value="병원">병원</option>
+                        <option value="유치원">유치원</option>
+                        <option value="카페">카페</option>
+                        <option value="호텔">호텔</option>
+                        <option value="미용">미용</option>
+                        <option value="그루밍">그루밍</option>
                       </select>
                       <input type="text" name="pdescrption" placeholder="업체 설명">
-                      <input id="pfile" type="file" name="pimg">
+                      <input type="text" name ="pprice" placeholder="업체 이용료">
+                      <input id="pfile" type="file" name="pimgname">
                       <button type="submit" class="site-btn">Complete</button>
                   </form>
               </div>
@@ -380,7 +432,12 @@
       </div>
   </div>
 </section>
+</c:if>
 <!--Shop Login End-->
+
+
+
+
 
  <!-- Footer Section Begin -->
  <footer class="footer set-bg" data-setbg="resources/img/footer.jpg" style="background-color:#f08632;">

@@ -10,4 +10,5 @@ public class CommentDTO {
 	private int cbnumber;
 	private String cwriter;
 	private String ccontents;
+	private String btype;
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="VODBoard"> 
+	<insert id="boardWriteFile" parameterType="vodboard">
+		INSERT INTO VODBOARD(VODBNUMBER,VODBWRITER,VODBTITLE,VODBCONTENTS,VODBDATE,VODBHITS,VODBNAME)
+			VALUES(SEQ_VODBNUMBER.NEXTVAL,#{vodbwriter},#{vodbtitle},#{vodbcontents},TO_CHAR(SYSDATE, 'YY-MM-DD'),0)
+	</insert>
+	<select id="boardList" parameterType="String" resultType="vodboard">
+		SELECT * FROM VODBOARD WHERE VODBWRITER =#{mid} 
+	</select>
+	
+	<select id="boardBhits" resultType="vodboard" >
+		SELECT * FROM VODBOARD ORDER BY VODBHITS DESC
+	</select>
+
+	<update id="boardHits" parameterType="int">
+		UPDATE VODBOARD SET VODBHITS=VODBHITS+1 WHERE VODBNUMBER=#{vodbnumber}
+	</update>
+	<select id="boardView" parameterType="int" resultType="vodboard">
+		SELECT * FROM VODBOARD WHERE VODBNUMBER=#{vodbnumber}
+	</select>
+	
+	<update id="boardUpdate" parameterType="vodboard">
+		UPDATE VODBOARD SET VODBTITLE=#{vodbtitle}, VODBCONTENTS=#{vodbcontents} WHERE VODBNUMBER=#{vodbnumber}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM VODBOARD WHERE VODBNUMBER=#{vodbnumber}
+	</delete>
+	
+	<select id="boardListCount" resultType="int">
+		SELECT COUNT(VODBNUMBER) FROM VODBOARD
+	</select>
+	
+	<select id="boardListPaging" parameterType="page" resultType="vodboard">
+		SELECT * FROM (SELECT B.*, ROW_NUMBER() OVER(ORDER BY VODBNUMBER DESC)
+			AS RN FROM VODBOARD B) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="boardSearch" resultType="vodboard" parameterType="java.util.HashMap">
+		SELECT * FROM VODBOARD 
+			<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<choose>
+			<when test="type == 'searchtitle'">
+				WHERE VODBTITLE LIKE '%'||#{word}||'%'
+			</when>
+			<when test="type == 'searchwriter'">
+				WHERE VODBWRITER LIKE '%'||#{word}||'%'
+			</when>
+		</choose>
+	</sql>
+	
+	
+	
+	
+	
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

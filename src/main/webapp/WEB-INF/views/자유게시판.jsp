@@ -152,13 +152,13 @@
                             <li><a href="shop?type=C">문화공간</a></li>
                         </ul>
                         </li>
-                        <li class="active"><a href="./공지사항.html">커뮤니티</a>
+                        <li class="active"><a href="ntboardlist">커뮤니티</a>
                             <ul class="dropdown">
-                                <li><a href="공지사항?type=news">공지사항</a></li>
-                                <li><a href="자유게시판?type=free">자유게시판</a></li>
-                                <li><a href="사진갤러리?type=Photo">사진갤러리</a></li>
-                                <li><a href="상담게시판?type=question">상담게시판</a></li>
-                                <li><a href="강의동영상?type=vod">강의 동영상</a></li>
+                                <li><a href="ntboardlist">공지사항</a></li>
+                                <li><a href="freeboardlist">자유게시판</a></li>
+                                <li><a href="ptboardlist">사진갤러리</a></li>
+                                <li><a href="dtboardlist">상담게시판</a></li>
+                                <li><a href="vodboardlist">강의 동영상</a></li>
                             </ul>
                         </li>
                         <li><a href="./contact.html">문의</a></li>
@@ -177,11 +177,11 @@
 					<div class="inner">
 						<nav class="lnb lnb_scroll v3">
 							<ul>
-								<li><a href="공지사항?type=news"><span>공지사항</span></a></li>
-								<li><a href="자유게시판?type=free" class="on"><span>자유게시판</span></a></li>
-								<li><a href="사진갤러리?type=Photo"><span>사진갤러리</span></a></li>
-								<li><a href="상담게시판?type=question" ><span>상담게시판</span></a></li>
-								<li><a href="강의동영상?type=vod" ><span>강의 동영상</span></a></li>
+								<li><a href="ntboardlist"><span>공지사항</span></a></li>
+								<li><a href="freeboardlist" class="on"><span>자유게시판</span></a></li>
+								<li><a href="ptboardlist"><span>사진갤러리</span></a></li>
+								<li><a href="dtboardlist" ><span>상담게시판</span></a></li>
+								<li><a href="vodboardlist" ><span>강의 동영상</span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -233,26 +233,30 @@
 											<td class="bbs-list-view">조회</td>
 										</tr>
 									</thead>
+								
 									<tbody>
+								<c:forEach var="freeboard" items="${boardList}" >
 																				<tr>
-											<td class="bbs-list-uid">1</td>
+											<td class="bbs-list-uid">${freeboard.freebnumber}</td>
 											<td class="bbs-list-title">
-												<a href="./게시판상세.html">
+												<a href="freeboardview?bnumber=${freeboard.freebnumber}&page=${paging.page}">
 													<div class="bbs-cut-strings">
-														자유게시판 편하게 이용 바래요 ♥													</div>
+													${freeboard.freebtitle}
+													</div>
 													<div class="bbs-mobile-contents">
-														<span class="contents-item">관리자</span>
-														<span class="contents-item">2020.10.12</span>
-														<span class="contents-item">28</span>
+														<span class="contents-item">${freeboard.freebwriter}</span>
+														<span class="contents-item">${freeboard.freebdate}</span>
+														<span class="contents-item">${freeboard.freebhits}</span>
 													</div>
 												</a>
 											</td>
-											<td class="bbs-list-user">관리자</td>
-											<td class="bbs-list-date">2020.10.12</td>
-											<td class="bbs-list-view">28</td>
+											<td class="bbs-list-user">${freeboard.freebwriter}</td>
+											<td class="bbs-list-date">${freeboard.freebdate}</td>
+											<td class="bbs-list-view">${freeboard.freebhits}</td>
 										</tr>
-																			</tbody>
-								</table>
+									</c:forEach>		
+								</tbody>
+							</table>
 							</div>
 							<!-- 리스트 끝 -->
 							
@@ -260,11 +264,34 @@
 
 							<!-- 페이징 시작 -->
 							<div class="apagination">
-								<a class="btn_first" href="bbs_listb9fc.html?bbs=free&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">처음</a><span>1</span><a class="btn_last" href="bbs_listb9fc.html?bbs=free&amp;page=1&amp;s_que=&amp;field=&amp;mode=&amp;vtype=&amp;so_name=&amp;so_arr=">마지막</a>							</div>
+							<c:if test="${paging.page<=1}">
+							<a class="btn_first">이전</a>
+							</c:if>
+							<c:if test="${paging.page>1}">
+							<a class="btn_first"
+							href="freeboardlist?page=${paging.page-1}">이전</a>
+							</c:if>
+						   <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="i" step="1">
+							<c:choose>
+							<c:when test="${i eq paging.page}">
+							<span>${i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="freeboardlist?page=${i}">${i}</a>
+							</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							<c:if test="${paging.page>=paging.maxPage}">
+							<a class="btn_last">다음</a>
+							</c:if>
+								<c:if test="${paging.page<paging.maxPage}">
+							<a class="btn_last" href="freeboardlist?page=${paging.page+1}">마지막</a>	
+							</c:if>				
+							</div>
 							<!-- 페이징 끝 -->
 							<div class="bbs-control">
 								<div class="right">
-									<a href="글쓰기.html?Type=free" class="bbs-button">글작성하기</a>
+									<a href="freeboardwritefileform?&page=${paging.page}&type=free" class="bbs-button">글작성하기</a>
 								</div>
 							</div>
 													</div>
@@ -380,7 +407,6 @@
 	}
 	</script>
 
-	</div>
 </body>
 
 <!-- Mirrored from www.geojeyouth.com/web/bbs_list?bbs=free by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 Nov 2020 15:12:43 GMT -->

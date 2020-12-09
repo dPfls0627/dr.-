@@ -97,7 +97,7 @@
                     <div class="col-lg-12">
                         <div class="header__top__inner">
                             <div class="header__logo">
-                                <a href="./index.html"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
+                                <a href="#"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
     <!-- Breadcrumb End -->
 
     <!-- Checkout Section Begin -->
-  <form>
+  <form action="memberupdateprocess" method="post">
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
@@ -140,40 +140,43 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>아이디<span>*</span></p>
-                                        <input type="text" name="mid" id="mid" value="silverain127" readonly>
+                                        <input type="text" name="mid" id="mid" value="${member.mid}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>비밀번호<span>*</span></p>
-                                        <input type="password" name="mpassword" id="mpassword" value="">
+                                        <input type="password" name="mpassword" id="mpassword" value="${member.mpassword}">
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout__input">
                                 <p>이름<span>*</span></p>
-                                <input type="text" name="mname" id="mname" value="">
+                                <input type="text" name="mname" id="mname" value="${member.mname}">
                             </div>
                             <div class="checkout__input">
                                 <p>주소<span>*</span></p>
                                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="height: 30px; margin-bottom: -0.5px;"><br>
                                 <input type="text" id="sample6_postcode" placeholder="우편번호">
-                                <input type="text" name="maddress" id="sample6_address" placeholder="주소"><br>
+                                <input type="text" name="maddress" id="sample6_address" placeholder="주소" value="${member.maddress}"><br>
                                 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
                                 <input type="text" id="sample6_extraAddress" placeholder="참고항목">
                             </div>
                             <div class="checkout__input">
                                 <p>이메일<span>*</span></p>
-                                <input type="text" name="memail" id="memail" value="">
+                                <input type="text" name="memail" id="memail" value="${member.memail}">
+                            </div>
+                            <div class="checkout__input">
+                                <p>전화번호<span>*</span></p>
+                                <input type="text" name="mphone" id="mphone" value="${member.mphone}">
                             </div>
                             <div class="checkout__input">
                                 <p>My Point<span>*</span></p>
-                                <input type="text" name="mpoint" id="mpoint" value="" readonly>
+                                <input type="text" name="" id="mpoint" value="${member.mpoint}포인트" readonly>
                             </div>
                             <div class="checkout__input">
                                 <p>닉네임<span>*</span></p>
-                                <input type="text" name="mnickname" id="mnickname" value="" onkeyup="nicknameOverlap()">
-                                <span id="nicknameOverlap"></span>
+                                <input type="text" name="mnickname" id="mnickname" value="${member.mnickname}" >
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6">

@@ -4,14 +4,21 @@
  
  <mapper namespace="Comment">
 	<insert id="commentWrite" parameterType="comment">
-		INSERT INTO COMMENTTABLE(CNUMBER,CBNUMBER,CWRITER,CCONTENTS) 
-			VALUES(SEQ_CNUMBER.NEXTVAL,#{cbnumber},#{cwriter},#{ccontents})
+		INSERT INTO COMMENTTABLE(CNUMBER,CBNUMBER,CWRITER,CCONTENTS,BTYPE) 
+			VALUES(SEQ_CNUMBER.NEXTVAL,#{cbnumber},#{cwriter},#{ccontents},#{btype})
 	</insert>
 	
-	<select id="commentList" parameterType="int" resultType="comment">
-		SELECT * FROM COMMENTTABLE WHERE CBNUMBER=#{cbnumber} ORDER BY CNUMBER DESC
+	<select id="commentList"  resultType="comment">
+		SELECT * FROM COMMENTTABLE WHERE CBNUMBER=#{bnum} AND BTYPE=#{btype} ORDER BY CNUMBER DESC
 	</select>
 	
+		<delete id="commentDelete" parameterType="int">
+		DELETE FROM COMMENTTABLE WHERE CNUMBER=#{cnumber}
+	</delete>
+	
+	<select id="reserveload" parameterType="String" resultType="String">
+ 		SELECT MNAME, PRODUCTID FROM RESERVE WHERE MNAME=#{mname} AND PRODUCTID=#{productid}
+ 	</select>
  </mapper>
  
  

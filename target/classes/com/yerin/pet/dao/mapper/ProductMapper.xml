@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="Product"> 
+ 
+ 	<insert id="reservewrite" parameterType="reserve">
+	INSERT INTO RESERVE(RESERVEID,MEMBERID,SHOPID,RDATE,RSTARTDATE,RENDDATE,RTIME,RSTATE,PRICE,PCOUNT,EMAIL,PSIZE,PHAIR,PANIMAL,MNAME,PRODUCTID)
+	VALUES(SEQ_RESERVE.NEXTVAL,#{memberid},#{shopid},TO_CHAR(SYSDATE, 'YY-MM-DD'),#{rstartdate},#{renddate},#{rtime},'예약대기',#{price},#{pcount},#{email},#{psize},#{phair},#{panimal},#{mname},#{productid})
+	</insert> 
+	
+ 	
+ 	<update id="reserveCheck" parameterType="int">
+ 		UPDATE RESERVE SET RSTATE='예약완료' WHERE RESERVEID=#{reserveid}
+ 	</update>
+ 	
+ 	<select id="reserveSearch1" resultType="reserve">
+ 		SELECT * FROM RESERVE R, MEMBER M WHERE R.MEMBERID = M.MEMBERID AND R.RSTATE='예약대기' ORDER BY RESERVEID ASC
+ 	</select>
+ 	
+ 	<select id="reserveSearch2" resultType="reserve">
+ 		SELECT * FROM RESERVE R, MEMBER M WHERE R.MEMBERID = M.MEMBERID AND R.RSTATE='예약완료' ORDER BY RESERVEID ASC
+ 	</select>
+ 	
+ 	<select id="memberReserveList" parameterType="String" resultType="reserve">
+ 		SELECT * FROM RESERVE R, MEMBER M, SHOP_MEMBER S WHERE R.MEMBERID = M.MEMBERID AND R.SHOPID = S.SHOPID AND M.MID=#{mid} ORDER BY RESERVEID ASC
+ 	</select>
+ 	
+ 	<select id="setpay" parameterType="int" resultType="reserve">
+		SELECT * FROM RESERVE WHERE RESERVEID=#{reserveid}
+	</select>
+ 	 	<select id="getShopId" parameterType="String" resultType="int">
+ 		SELECT SHOPID FROM SHOP_MEMBER WHERE SID=#{sid}
+ 	</select>
+ 	
+ 	<insert id="productRegistration" parameterType="product">
+ 		INSERT INTO PRODUCT(PRODUCTID,SHOPID,PTYPE,PNAME,PPRICE,PDESCRPTION,PIMG)
+ 		 VALUES(SEQ_PRODUCTID.NEXTVAL,#{shopid},#{ptype},#{pname},#{pprice},#{pdescrption},#{pimg})
+ 	</insert>
+ 	
+ 	<select id="productList" resultType="product">
+ 		SELECT * FROM PRODUCT P, SHOP_MEMBER S WHERE P.SHOPID = S.SHOPID AND PTYPE='병원' ORDER BY PTYPE ASC
+ 	</select>
+ 	
+ 	<select id="productView" parameterType="int" resultType="product">
+ 		SELECT * FROM PRODUCT WHERE PRODUCTID=#{productid}
+ 	</select>
+ 	
+ 	 <select id="shopList" resultType="product">
+ 		SELECT * FROM PRODUCT P, SHOP_MEMBER S WHERE P.SHOPID = S.SHOPID AND NOT PTYPE='병원' ORDER BY PTYPE ASC
+ 	</select>
+ 	
+ 	<delete id="productDelete" parameterType="int">
+ 		DELETE FROM PRODUCT WHERE PRODUCTID=#{productid}
+ 	</delete>
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

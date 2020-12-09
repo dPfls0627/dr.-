@@ -15,135 +15,213 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yerin.pet.dao.BoardDAO;
 import com.yerin.pet.dao.MemberDAO;
-import com.yerin.pet.dto.BoardDTO;
 import com.yerin.pet.dto.MemberDTO;
+import com.yerin.pet.dto.ReserveDTO;
+import com.yerin.pet.dto.ShopMemberDTO;
 
 @Service
 public class MemberService {
-	
-	@Autowired
-	private BoardDAO boardDAO;
-	
-	
+		
 	@Autowired
 	private MemberDAO memberDAO;
+
 	@Autowired
 	private HttpSession session;
-	// 모델앤드뷰 클래스 : 데이터와 화면을 모두 저장하는 클래스
-	// Autowired 안쓰니까 주의
+
 	private ModelAndView mav;
 	
 	
-	public ModelAndView memberjoin(MemberDTO member) throws IllegalStateException, IOException {
-		MultipartFile profile = member.getProfile();
+	public ModelAndView shopMemberJoin(ShopMemberDTO shopMember) throws IllegalStateException, IOException {
 		mav = new ModelAndView();
-		String profilename = profile.getOriginalFilename();
 		
-		String savePath = "D:\\source\\Spring\\MemberBoard\\src\\main\\webapp\\resources\\img\\"+profilename;
-		if(!profile.isEmpty()) {
-			profile.transferTo(new File(savePath));
+		MultipartFile sfile = shopMember.getSfile();
+		String sprofile = sfile.getOriginalFilename();
+		String savePath = "C:\\Users\\srk04\\Downloads\\주말빡시게 구\\DOGCAT\\src\\main\\webapp\\resources\\images\\"
+						  +sprofile;
+//		String savePath = "C:\\Users\\coms\\Desktop\\Team_project\\src\\main\\webapp\\resources\\project_img\\"
+//				  		  +sprofile;
+		
+		if(!sfile.isEmpty()) {
+			sfile.transferTo(new File(savePath));
 		}
-		member.setProfilename(profilename);
+		shopMember.setSprofile(sprofile);
 		
-		int joinResult=memberDAO.memberJoin(member);
-		if(joinResult>0) {
-			//성공시 Login으로 이동
-			mav.setViewName("LoginForm");
+		int joinResult = memberDAO.shopMemberJoin(shopMember);
+		if (joinResult == 1) {
+			int type = memberDAO.memberLoginType(shopMember);
+			shopMember.setType(type);
+			mav.addObject("shopMember", shopMember);
+			mav.setViewName("register_end");
 		}else {
-			//실패시 joinfail로 이동
-			mav.setViewName("JoinFailForm");
+			mav.setViewName("MemberJoinFail");
 		}
 		return mav;
-			
 	}
 
-	public ModelAndView memberLogin(MemberDTO member) {
+	public ModelAndView memberJoin(MemberDTO member) {
 		mav = new ModelAndView();
+		int joinResult = memberDAO.memberJoin(member);
+		if(joinResult==1) {
+			int type = memberDAO.memberJoinType(member);
+			member.setType(type);
+			mav.addObject("member", member);
+			mav.setViewName("register_end");
+		}else {
+			mav.setViewName("MemberJoinFail");
+		}
+		return mav;
+	}
+
+	public String idOverlap1(String mid) {
+		String checkResult = memberDAO.idOverlap1(mid);
+		String resultMag = null;
+		if (checkResult == null) {
+			resultMag="OK";
+		}else {
+			resultMag="NO";
+		}
+		return resultMag;
+	}
+
+	public String idOverlap2(String sid) {
+		String checkResult = memberDAO.idOverlap2(sid);
+		String resultMag = null;
+		if (checkResult == null) {
+			resultMag="OK";
+		}else {
+			resultMag="NO";
+		}
+		return resultMag;
+	}
+
+	public ModelAndView memberLogin(String mid, String mpassword) {
+		mav = new ModelAndView();
+		MemberDTO member = new MemberDTO();
+		member.setMid(mid);
+		member.setMpassword(mpassword);
+		System.out.println(member.toString());
+		
 		String loginId = memberDAO.memberLogin(member);
-		
-		if(loginId != null) {
-			session.setAttribute("loginId",loginId);
-		 mav.setViewName("redirect:/boardlistpaging");
-		}else {
-		 mav.setViewName("LoginFailForm");
+		if (loginId != null) {
+				int type = memberDAO.memberJoinType(member);
+				session.setAttribute("loginId", loginId);
+				session.setAttribute("type", type);
+				mav.setViewName("index");
+		}else{
+			mav.setViewName("MemberLoginFail");
 		}
 		
 		return mav;
 	}
 
-	public ModelAndView memberList() {
+	public ModelAndView memberShopLogin(String sid, String spassword) {
 		mav = new ModelAndView();
-		List<MemberDTO> memberList = memberDAO.memberList();
-		mav.addObject("memberList",memberList);
-		mav.setViewName("MemberList");
+		ShopMemberDTO shopMember = new ShopMemberDTO();
+		shopMember.setSid(sid);
+		shopMember.setSpassword(spassword);
 		
+		System.out.println(shopMember.toString());
+		
+		String loginId = memberDAO.memberShopLogin(shopMember);
+		
+		if (loginId != null) {
+			int type = memberDAO.memberLoginType(shopMember);
+			if(type == 2) {
+				session.setAttribute("loginId", loginId);
+				session.setAttribute("type", type);
+				mav.setViewName("index");
+			}else {
+				mav.setViewName("MemberLoginTypeFail");
+			}
+		}else{
+			mav.setViewName("MemberLoginFail");
+		}
 		return mav;
 	}
 
-	public ModelAndView memberView(String mid) {
+	public ModelAndView loginList() {
 		mav = new ModelAndView();
-		MemberDTO member = new MemberDTO();
-		List<BoardDTO> boardList = boardDAO.boardList(mid);
-		member = memberDAO.memberView(mid);
-		mav.addObject("boardList", boardList);
-		mav.addObject("member",member);
-		mav.setViewName("MemberView");
+		List<ShopMemberDTO> shopMemberList = memberDAO.loginList();
+		List<MemberDTO> memberList = memberDAO.memberList();
+		List<ReserveDTO> reserveList = memberDAO.reserveList();
+
+		mav.addObject("sMemList",shopMemberList);
+		mav.addObject("memberList",memberList);
+		mav.addObject("reserveList",reserveList);
+		mav.setViewName("adminpage");
 		return mav;
 	}
-	public ModelAndView memberPopup(String mid) {
+
+	public ModelAndView memberLoginOk(String sid) {
 		mav = new ModelAndView();
-		MemberDTO member = new MemberDTO();
-		member = memberDAO.memberView(mid);
-		mav.addObject("member",member);
-		mav.setViewName("MemberPopup");
+		int updateResult = memberDAO.memberLoginOk(sid);
+		if(updateResult == 1) {
+			mav.setViewName("redirect:/adminpage");
+		}else {
+			mav.setViewName("MemberLoginOkFail");
+		}
 		return mav;
 	}
-	
 
 	public ModelAndView memberDelete(String mid) {
 		mav = new ModelAndView();
-		memberDAO.memberDelete(mid);
-		mav.setViewName("redirect:/memberlist");
-		return mav;
-	}
-	
-	public void memberDeleteAjax(String mid) {
-		memberDAO.memberDelete(mid);
-	}
-	
-	public ModelAndView memberShow(String mid) {
-		mav = new ModelAndView();
-		MemberDTO member = new MemberDTO();
-		member = memberDAO.memberView(mid);
-		mav.addObject("member",member);
-		mav.setViewName("MemberUpdate");
+		int deleteResult = memberDAO.memberDelete(mid);
+		if(deleteResult==1) {
+			mav.setViewName("redirect:/adminpage");
+		}else {
+			mav.setViewName("MemberDeleteFail");
+		}
 		return mav;
 	}
 
-	public ModelAndView memberUpdate(MemberDTO member) {
+	public ModelAndView memberType(String loginId) {
 		mav = new ModelAndView();
-		memberDAO.memberUpdate(member);
-		mav.setViewName("redirect:/memberlist");
-		return mav;
-	}
-
-	public String idOverlap(String mid) {
-		String checkResult = memberDAO.idOverlap(mid);
-		String resultMsg = null;
-		if(checkResult == null)
-			resultMsg = "OK";
-		else
-			resultMsg = "NO";
 		
-		return resultMsg;
+		return mav;
 	}
 
-	public MemberDTO memberViewAjax(String mid) {
-			MemberDTO memberView = memberDAO.memberView(mid);
-		return memberView;
+	public ModelAndView memberUpdate(String mid) {
+		mav = new ModelAndView();
+		MemberDTO member = memberDAO.memberUpdate(mid);
+		mav.addObject("member",member);
+		mav.setViewName("memberupdate");
+		return mav;
 	}
+
+	public ModelAndView memberUpdateProcess(MemberDTO member) {
+		mav = new ModelAndView();
+		int updateResult = memberDAO.memberUpdateProcess(member);
+		if(updateResult == 1) {
+			mav.setViewName("memberUpdateSuccess");
+		}else {
+			mav.setViewName("memberUpdateFail");
+		}
+		return mav;
+	}
+
+	public ModelAndView memberOut(String mid) {
+		mav = new ModelAndView();
+		int deleteResult = memberDAO.memberDelete(mid);
+		if(deleteResult==1) {
+			mav.setViewName("index");
+		}else {
+			mav.setViewName("MemberDeleteFail");
+		}
+		return mav;
+	}
+
+	public ModelAndView shopMemberDelete(String sid) {
+		mav = new ModelAndView();
+		int deleteResult = memberDAO.shopMemberDelete(sid);
+		if(deleteResult==1) {
+			mav.setViewName("redirect:/adminpage");
+		}else {
+			mav.setViewName("MemberDeleteFail");
+		}
+		return mav;
+	}
+
 
 	public ModelAndView kakaoLogin(JsonNode profile) {
 		mav=new ModelAndView();

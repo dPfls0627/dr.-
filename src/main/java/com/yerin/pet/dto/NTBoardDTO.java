@@ -7,14 +7,12 @@ import lombok.*;
 @ToString
 public class NTBoardDTO {
 	private int ntbnumber;
-	private String bwriter;
-	private String bpassword;
-	private String btitle;
-	private String bcontents;
-	private String bdate;
-	private int bhits;
+	private String ntbwriter;
+	private String ntbtitle;
+	private String ntbcontents;
+	private String ntbdate;
+	private int ntbhits;
 
-	
 }
 
 

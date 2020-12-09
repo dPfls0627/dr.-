@@ -1,7 +1,5 @@
 package com.yerin.pet.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,20 +8,20 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberDTO {
-	
+
+	private int memberid;
 	private String mid;
 	private String mpassword;
 	private String mname;
-	private String mphone;
-	private String memail;
+	private String maddress;
 	private String mbirth;
-	private String postcode;
-	private String address;
-	private String detailaddress;
-	private String extraaddress;
-	private MultipartFile profile;
-	private String profilename;	
-	private String kakaoId;
+	private String memail;
+	private String mphone;
+	private int mpoint;
+	private String mnickname;
+	private int type;
 	private String naverId;
-	
+	private String kakaoId;
+	private String googleId;
+	private String facebookId;
 }

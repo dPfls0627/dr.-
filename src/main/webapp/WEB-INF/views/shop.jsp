@@ -43,69 +43,105 @@
 
    
 <!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__cart">
-      <div class="offcanvas__cart__item">
-          <a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>
-      </div>
-        <div class="offcanvas__cart__links">
-            <a href="#"><img src="resources/img/icon/heart.png" alt=""></a>
-            <a href="#" class="search-switch"><img src="resources/img/icon/search.png" alt=""></a>
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__cart">
+          <div class="offcanvas__cart__item">  
+              <c:choose>
+                <c:when test="${empty sessionScope.loginId}">
+                </c:when>
+              	<c:when test="${sessionScope.loginId eq 'admin'}">
+                	<a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
+                </c:when>
+                <c:otherwise>
+                	<a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>                              	
+                </c:otherwise>
+              </c:choose>
+          </div>
+          <div class="header__top__right__links">
+          	<c:if test="${!empty sessionScope.loginId}">	
+         		<div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
+         		<img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
+         	</c:if>
+          	<a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+          </div>
+        </div>
+        <div class="offcanvas__logo">
+            <a href="index"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__option">
+            <ul>
+              <c:if test="${empty sessionScope.loginId}">
+              <li><a href="register">회원가입</a></li>
+              <li><a href="login">로그인</a></li>
+              </c:if>
+              <c:if test="${!empty sessionScope.loginId}">
+              	<li><a href="register">회원가입</a></li>
+              	<li><a href="logout">로그아웃</a></li>
+              </c:if>
+            </ul>
         </div>
     </div>
-    <div class="offcanvas__logo">
-        <a href="index"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__option">
-        <ul>
-          <li><a href="register">회원가입</a></li>
-          <li><a href="login">로그인</a></li>
-        </ul>
-    </div>
-</div>
 <!-- Offcanvas Menu End -->
 
 <!-- Header Section Begin -->
 <header class="header">
-  <div class="header__top">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="header__top__inner">
-                      <div class="header__top__left">
-                          <ul>
-                              <li><a href="register">회원가입</a></li>
-                              <li><a href="login">로그인</a></li>
-                          </ul>
-                      </div>
-                        <div class="header__logo">
-                            <a href="index"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
-                        </div>
-                        <div class="header__top__right" style=" margin-top:-17px;">
-                          <div class="header__top__right__cart" >
-                              <a href="./mypage.html" style="color: black;"><img src="" alt="">마이페이지</a>
+      <div class="header__top">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="header__top__inner">
+                          <div class="header__top__left">
+                              <ul>
+                              	<c:if test="${empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+             						<li><a href="login">로그인</a></li>
+              					</c:if>
+              					<c:if test="${!empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+              						<li><a href="logout">로그아웃</a></li>
+              					</c:if>
+                              </ul>
                           </div>
-                            <div class="header__top__right__links">
-                              <div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
-                              <img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
-                              <a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+                            <div class="header__logo">
+                                <a href="index"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
+                            </div>
+                            <div class="header__top__right" style=" margin-top:-17px;">
+                              <div class="header__top__right__cart" >
+                              	<c:choose>
+                					<c:when test="${empty sessionScope.loginId}">
+                					</c:when>
+              						<c:when test="${sessionScope.loginId eq 'admin'}">
+                						<a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
+               					 	</c:when>
+                					<c:otherwise>
+                						<a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>                              	
+                					</c:otherwise>
+              					</c:choose>
+                              	
+                              </div>
+                                <div class="header__top__right__links">
+                                	<c:if test="${!empty sessionScope.loginId}">	
+                                  		<div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
+                                  		<img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
+                                	</c:if>
+                                  	<a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="canvas__open"><i class="fa fa-bars"></i></div>
             </div>
-            <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <nav class="header__menu mobile-menu">
                     <ul>
                         <li><a href="index">홈</a></li>
-                        <li><a href="Dr.멍이냥">소개</a></li>
+                        <li><a href="멍이냥">소개</a></li>
                         <li><a href="hospital">병원</a>
                         <li class="active"><a href="shop">스토어</a>
                         <ul class="dropdown">
@@ -125,7 +161,7 @@
                                 <li><a href="강의동영상?type=vod">강의 동영상</a></li>
                             </ul>
                         </li>
-                        <li><a href="contact.html">문의</a></li>
+                        <li><a href="contact">문의</a></li>
                     </ul>
                 </nav>
             </div>
@@ -145,7 +181,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__links">
-                        <a href="./index.html">Home</a>
+                        <a href="index">Home</a>
                         <span>Shop</span>
                     </div>
                 </div>
@@ -154,6 +190,7 @@
     </div>
     <!-- Breadcrumb End -->
 
+    
     <!-- Shop Section Begin -->
     <section class="shop spad">
         <div class="container">
@@ -164,7 +201,7 @@
                             <form action="#" method="POST">
                                 <select>
                                     <option value="">선택해주세요</option>
-                                    <option value="">호텔</option>                                 
+                                    <option value="">호텔</option>
                                     <option value="">미용</option>
                                     <option value="">그루밍</option>
                                 </select>
@@ -176,211 +213,27 @@
                 </div>
             </div>
             <div class="row">
+                
+                
+                <c:forEach var="productList" items="${productList}">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-1.jpg">
+                        <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/resources/project_img/${productList.sprofile}">
                             <div class="product__label">
-                                <span>호텔</span>
+                                <span>${productList.ptype}</span>
                             </div>
                         </div>
                         <div class="product__item__text">
-                            <div class="product__item__price"><h6><a href="#">Dozen Cupcakes</a></h6></div>
+                            <div class="product__item__price"><h6><a href="#">${productList.pname}</a></h6></div>
                             <div class="cart_add">
-                                <a href="./productview.html">
-                                  자세히보기</a>
+                                <a href="productview?productid=${productList.productid}">자세히보기</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-2.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Cookies and Cream</a></h6>
-                            <div class="product__item__price">$30.00</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-3.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Gluten Free Mini Dozen</a></h6>
-                            <div class="product__item__price">$31.00</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/shop/product-4.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Cookie Dough</a></h6>
-                            <div class="product__item__price">$25.00</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-5.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Vanilla Salted Caramel</a></h6>
-                            <div class="product__item__price">$05.00</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-6.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">German Chocolate</a></h6>
-                            <div class="product__item__price">$14.00</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-7.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Dulce De Leche</a></h6>
-                            <div class="product__item__price">$32.00</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-8.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Mississippi Mud</a></h6>
-                            <div class="product__item__price">$08.00</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-9.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">VEGAN/GLUTEN FREE</a></h6>
-                            <div class="product__item__price">$98.85</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-10.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">SWEET CELTICS</a></h6>
-                            <div class="product__item__price">$5.77</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-11.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">SWEET AUTUMN LEAVES</a></h6>
-                            <div class="product__item__price">$26.41</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="resources/img/shop/product-12.jpg">
-                            <div class="product__label">
-                                <span>Cupcake</span>
-                            </div>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">PALE YELLOW SWEET</a></h6>
-                            <div class="product__item__price">$22.47</div>
-                            <div class="cart_add">
-                                <a href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="shop__last__option">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="shop__pagination">
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#"><span class="arrow_carrot-right"></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </c:forEach>
+                
+                
         </div>
     </section>
     <!-- Shop Section End -->

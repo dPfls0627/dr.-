@@ -23,8 +23,9 @@
 
     <script>
       function reservePop(){
-        window.open("reservepop", "a", "width=700, height=800, left=100, top=50"); 
+        window.open("reservepop?mid=${sessionScope.loginId}&pid=${product.productid}&sid=${product.shopid}", "a", "width=700, height=800, left=100, top=50"); 
       }
+      
     </script>
 
     <!-- Google Font -->
@@ -46,6 +47,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" type="text/css">
     
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/board/css/base.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script>    $(document).ready(function(){
+    commentList(); //페이지 로딩시 댓글 목록 출력 
+});
+  </script>
 </head>
 
 <body>
@@ -57,68 +63,104 @@
   
 <!-- Offcanvas Menu Begin -->
 <div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__cart">
-      <div class="offcanvas__cart__item">
-          <a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>
-      </div>
-        <div class="offcanvas__cart__links">
-            <a href="#"><img src="resources/img/icon/heart.png" alt=""></a>
-            <a href="#" class="search-switch"><img src="resources/img/icon/search.png" alt=""></a>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__cart">
+          <div class="offcanvas__cart__item">  
+              <c:choose>
+                <c:when test="${empty sessionScope.loginId}">
+                </c:when>
+              	<c:when test="${sessionScope.loginId eq 'admin'}">
+                	<a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
+                </c:when>
+                <c:otherwise>
+                	<a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>                              	
+                </c:otherwise>
+              </c:choose>
+          </div>
+          <div class="header__top__right__links">
+          	<c:if test="${!empty sessionScope.loginId}">	
+         		<div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
+         		<img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
+         	</c:if>
+          	<a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+          </div>
+        </div>
+        <div class="offcanvas__logo">
+            <a href="index"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__option">
+            <ul>
+              <c:if test="${empty sessionScope.loginId}">
+              <li><a href="register">회원가입</a></li>
+              <li><a href="login">로그인</a></li>
+              </c:if>
+              <c:if test="${!empty sessionScope.loginId}">
+              	<li><a href="register">회원가입</a></li>
+              	<li><a href="logout">로그아웃</a></li>
+              </c:if>
+            </ul>
         </div>
     </div>
-    <div class="offcanvas__logo">
-        <a href="index"><img src="resources/img/멍이냥 로고2.png" width="150px" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__option">
-        <ul>
-          <li><a href="register">회원가입</a></li>
-          <li><a href="login">로그인</a></li>
-        </ul>
-    </div>
-</div>
 <!-- Offcanvas Menu End -->
 
 <!-- Header Section Begin -->
 <header class="header">
-  <div class="header__top">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-12">
-                  <div class="header__top__inner">
-                      <div class="header__top__left">
-                          <ul>
-                              <li><a href="register">회원가입</a></li>
-                              <li><a href="login">로그인</a></li>
-                          </ul>
-                      </div>
-                        <div class="header__logo">
-                            <a href="index"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
-                        </div>
-                        <div class="header__top__right" style=" margin-top:-17px;">
-                          <div class="header__top__right__cart" >
-                              <a href="./mypage.html" style="color: black;"><img src="" alt="">마이페이지</a>
+      <div class="header__top">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="header__top__inner">
+                          <div class="header__top__left">
+                              <ul>
+                              	<c:if test="${empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+             						<li><a href="login">로그인</a></li>
+              					</c:if>
+              					<c:if test="${!empty sessionScope.loginId}">
+              						<li><a href="register">회원가입</a></li>
+              						<li><a href="logout">로그아웃</a></li>
+              					</c:if>
+                              </ul>
                           </div>
-                            <div class="header__top__right__links">
-                              <div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
-                              <img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
-                              <a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+                            <div class="header__logo">
+                                <a href="index"><img src="resources/img/멍이냥 로고2.png" width="200px" alt=""></a>
+                            </div>
+                            <div class="header__top__right" style=" margin-top:-17px;">
+                              <div class="header__top__right__cart" >
+                              	<c:choose>
+                					<c:when test="${empty sessionScope.loginId}">
+                					</c:when>
+              						<c:when test="${sessionScope.loginId eq 'admin'}">
+                						<a href="adminpage" style="color: black;"><img src="" alt="">관리자페이지</a>
+               					 	</c:when>
+                					<c:otherwise>
+                						<a href="mypage" style="color: black;"><img src="" alt="">마이페이지</a>                              	
+                					</c:otherwise>
+              					</c:choose>
+                              	
+                              </div>
+                                <div class="header__top__right__links">
+                                	<c:if test="${!empty sessionScope.loginId}">	
+                                  		<div class="arlam" style="font-size: 3px; background-color: rgb(255, 145, 0); width: 15px; height: 15px; color: white;">10</div>
+                                  		<img src="resources/img/hero/icon.jpg" style="width: 40%;" alt="none"/>
+                                	</c:if>
+                                  	<a href="#" class="search-switch" style="margin-left: 10px;"><img src="resources/img/icon/search.png" alt=""></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="canvas__open"><i class="fa fa-bars"></i></div>
             </div>
-            <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <nav class="header__menu mobile-menu">
                     <ul>
                         <li><a href="index">홈</a></li>
-                        <li><a href="Dr.멍이냥">소개</a></li>
+                        <li><a href="멍이냥">소개</a></li>
                         <li><a href="hospital">병원</a>
                         <li><a href="shop">스토어</a>
                         <ul class="dropdown">
@@ -155,12 +197,12 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__text">
-                        <h2>Pet Morning</h2> <!--업체 상호명이 옴-->
+                        <h2>${product.pname}</h2> <!--업체 상호명이 옴-->
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__links">
-                        <a href="./index.html">Home</a>
+                        <a href="index">Home</a>
                         <span>Shop</span>
                     </div>
                 </div>
@@ -171,9 +213,9 @@
     
     <div id="product" style="margin-top: 50px; margin-bottom: 50px;">
       <div id="productview" style="text-align: center;">
-        <img src="resources/img/캣타워.jpg">
+        <img src="${pageContext.request.contextPath}/resources/project_img/${product.pimg}">
       </div>
-      <div id="productbtn" style="text-align: center;">
+      <div id="productbtn" style="text-align: center; margin-top:100px;">
         <a href="#" onclick="reservePop()" class="primary-btn">예약하기</a>
       </div>
     </div>
@@ -188,47 +230,18 @@
             <div class="contact__address2"></div>
             <div class="row">
                 <div class="col">
-                        <div>
-                             <h6><strong>아이디 : silverain127</strong></h6>
-                             <p>
-                              캣타워 정말 너무너무 좋아요!! 완전 잘 쓰고 있고
-                              저희 집 고양이가 잘 올라가더라구요!! 튼튼해서 만족스럽습니다!
-                              한 두세마리까지는 거뜬하게 케어할 수 있을 것 같아요
-                              많이 파세요 사장님^^ 번창하시길...
-                            </p>
+                        
+                      <div class="bbs-reply" style="margin:0;">
+                            <div class="content-view" style="margin:0;padding:0;" id="commentArea">
                         </div>
+                        <div style="border-bottom:1px solid #aea4a4;"></div>
+                    </div>
+                        </div>
+                     
                         <div class="contact_line"></div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col">
-                        <div>
-                             <h6><strong>아이디 : silverain127</strong></h6>
-                             <p>
-                              캣타워 정말 너무너무 좋아요!! 완전 잘 쓰고 있고
-                              저희 집 고양이가 잘 올라가더라구요!! 튼튼해서 만족스럽습니다!
-                              한 두세마리까지는 거뜬하게 케어할 수 있을 것 같아요
-                              많이 파세요 사장님^^ 번창하시길...
-                            </p>
-                        </div>
-                        <div class="contact_line"></div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                        <div>
-                             <h6><strong>아이디 : silverain127</strong></h6>
-                             <p>
-                              캣타워 정말 너무너무 좋아요!! 완전 잘 쓰고 있고
-                              저희 집 고양이가 잘 올라가더라구요!! 튼튼해서 만족스럽습니다!
-                              한 두세마리까지는 거뜬하게 케어할 수 있을 것 같아요
-                              많이 파세요 사장님^^ 번창하시길...
-                            </p>
-                        </div>
-                        <div class="contact_line"></div>
-                </div>
-              </div>
-            </div>
+         
           </section>
                       
           <section class="contact spad" style="margin-top:-150px;">
@@ -239,11 +252,14 @@
                       <form action="#" method="POST">
                         <div class="">
                           <div class="col-lg-6">
-                              <input type="text" value="silverain127">
+                              <input type="text" value="${sessionScope.loginId}" readonly>
                           </div>
                           <div class="col-lg-12">
-                            <textarea placeholder="Message"></textarea>
-                            <button type="submit" class="site-btn">댓글입력</button>
+                            <textarea id="ccontents" class="form-control" name="contents" style="width:100%;height:55px;"></textarea>
+                          </div>
+                          <div class="col">
+                            <input type="file" name="">
+                              <button type="button" class="site-btn" id="commentWriteBtn">댓글 등록</button>
                           </div>
                         </div>
                       </form>
@@ -253,7 +269,9 @@
             </div>
           </section>
 
-
+	<c:if test="${sessionScope.loginId eq 'admin'}">
+		<button onclick="location.href='productdelete?productid=${product.productid}&ptype=${product.ptype}'" style="width:100px; background-color:gray; color:white; margin:30px;">삭제</button>
+    </c:if>
       
     <!-- Contact Section End -->
           
@@ -322,7 +340,103 @@
   </div>
   </footer>
   <!-- Footer Section End -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
+<script>
+    //댓글작성
+	$(document).ready(function (){
+		
+		
+		$("#commentWriteBtn").click(function(){
+			var cwriter = "${sessionScope.loginId}";
+			var ccontents = $("#ccontents").val();
+			var cbnumber = "${product.productid}";
+			var btype = "reply";
+			var mname = "${sessionScope.loginId}";
+			var productid = "${product.productid}";
+			$.ajax({
+				type : "post",
+				url : "reserveload",
+				data : {"mname" : mname,
+					"productid" : productid},
+				dataType : "text",
+				success : function(result){
+					if(result=="OK"){
+						$.ajax({
+							type : "post",
+							url : "commentwrite",
+							data : {
+									"cwriter" : cwriter,
+									"ccontents" : ccontents,
+									"cbnumber" : cbnumber,
+									"btype" : btype},
+							dataType : "json",
+			                success : function(data){
+			            if(data == 1) {
+			                commentList(); //댓글 작성 후 댓글 목록 reload
+			                $('[name=contents]').val('');
+			            }
+			        },
+
+							error : function(){
+								console.log("댓글 등록 실패");
+								    /*request,status,error alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error); */
+							}
+						});
+					}else {
+						alert("예약하신분만 이용가능합니다.");
+					}
+				},
+				error : function(request,status,error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					alert("ajax실패");
+				}
+			});
+	
+		});
+	});
+    //댓글 출력
+    function commentList(){
+        var cbnumber = "${product.productid}";
+		var btype = "reply";
+		var id = "${sessionScope.loginId}"
+    $.ajax({
+        url : "commentlist",
+        type : "get",
+        data : {"cbnumber" : cbnumber,
+				"btype" : btype},
+        success : function(data){
+            var a =''; 
+            $.each(data, function(key, value){ 
+            	var cwriter = value.cwriter;
+                a += '<table class="table" style="margin:0px;">';
+                a += '<tr height="20">';
+                a += '<td style="width:8%;text-align:center;color:#669de8;font-weight:600;padding-top:15px;" id="commentArea">'+value.cwriter+'</td>';
+                a += '<td class="form-control" style="width:100%;border:none;padding-top:15px;">'+value.ccontents+'</td>';
+                if(id == cwriter){
+                a += '<td style="width:17%;padding-top:15px;">'+'<button type="button" class="btn btn-info" onclick="commentDelete('+value.cnumber+');">'+'삭제'+'</button>'+'</td>';
+                };
+                a += '<tr>';
+            });
+            
+            $("#commentArea").html(a);
+        }
+    });
+}
+    function commentDelete(cnumber){
+    	var cnumber=cnumber;
+    	console.log(cnumber);
+    $.ajax({
+        url : "commentdelete",
+        type : "post",
+        data : {"cnumber" : cnumber},
+        success : function(data){
+            if(data == 1) commentList(); //댓글 삭제후 목록 출력 
+        }
+    });
+}
+
+</script>
 <!-- Search Begin -->
 <div class="search-model">
     <div class="h-100 d-flex align-items-center justify-content-center">

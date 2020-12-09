@@ -43,29 +43,26 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-md-10 p-5 form-wrap">
-              <form action="#">
+              <form action="kakaopay">
                 <div class="row mb-4">
                   <div class="form-group col-md-4">
                     <label for="persons" class="label">Kind of animal</label>
                     <div class="form-field-icon-wrap">
                       <span class="icon ion-android-arrow-dropdown"></span>
-                      <select name="persons" id="persons" class="form-control">
-                        <option value="">선택해주세요</option>
-                        <option value="">강아지</option>
-                        <option value="">고양이</option>
-                        <option value="">기타</option>
+                      <select name="panimal" id="persons" class="form-control">
+                        <option value="강아지">강아지</option>
+                        <option value="고양이">고양이</option>
                       </select>
                     </div>
-                  </div>
+                  </div>        
                   <div class="form-group col-md-4">
                     <label for="persons" class="label">Hair length</label>
                     <div class="form-field-icon-wrap">
                       <span class="icon ion-android-arrow-dropdown"></span>
-                      <select name="persons" id="persons" class="form-control">
-                        <option value="">선택해주세요</option>
-                        <option value="">장모</option>
-                        <option value="">단모</option>
-                        <option value="">이중모</option>
+                      <select name="phair" id="persons" class="form-control">
+                        <option value="장모">장모</option>
+                        <option value="단모">단모</option>
+                        <option value="이중모">이중모</option>
                       </select>
                     </div>
                   </div>
@@ -73,11 +70,10 @@
                     <label for="persons" class="label">Weight</label>
                     <div class="form-field-icon-wrap">
                       <span class="icon ion-android-arrow-dropdown"></span>
-                      <select name="persons" id="persons" class="form-control">
-                        <option value="">선택해주세요</option>
-                        <option value="">대형</option>
-                        <option value="">중형</option>
-                        <option value="">소형</option>
+                      <select name="psize" id="persons" class="form-control">
+                        <option value="대형">대형</option>
+                        <option value="중형">중형</option>
+                        <option value="소형">소형</option>
                       </select>
                     </div>
                   </div>
@@ -85,12 +81,11 @@
                     <label for="persons" class="label">Number of animal</label>
                     <div class="form-field-icon-wrap">
                       <span class="icon ion-android-arrow-dropdown"></span>
-                      <select name="persons" id="persons" class="form-control">
-                        <option value="">1 마리</option>
-                        <option value="">2 마리</option>
-                        <option value="">3 마리</option>
-                        <option value="">4 마리</option>
-                        <option value="">5+ 마리</option>
+                      <select name="pcount" id="persons" class="form-control">
+                        <option value="1마리">1 마리</option>
+                        <option value="2마리">2 마리</option>
+                        <option value="3마리">3 마리</option>
+                        <option value="3마리이상">3+ 마리</option>
                       </select>
                     </div>
                   </div>
@@ -98,27 +93,35 @@
                     <label for="date" class="label">Start Date</label>
                     <div class="form-field-icon-wrap">
                       <span class="icon ion-calendar"></span>
-                      <input type="text" class="form-control" id="date2">
+                      <input type="text" class="form-control" id="date2" name="rstartdate">
                     </div>
                   </div>
                   <div class="form-group col-md-4">
                     <label for="date" class="label">End Date</label>
                     <div class="form-field-icon-wrap">
                       <span class="icon ion-calendar"></span>
-                      <input type="text" class="form-control" id="date">
+                      <input type="text" class="form-control" id="date" name="renddate">
                     </div>
                   </div>
                   <div class="form-group col-md-4">
                     <label for="time" class="label">Time</label>
                     <div class="form-field-icon-wrap">
                       <span class="icon ion-android-time"></span>
-                      <input type="text" class="form-control" id="time">
+                      <input type="text" class="form-control" id="time" name="rtime">
                     </div>
                   </div>
                 </div>
+                 <input type="hidden" name="productid" value="${product.productid}" >
+                <input type="hidden" name="memberid" value="${member.memberid}" >
+                <input type="hidden" name="mname" value="${member.mid}" >
+                <input type="hidden" name="shopid" value="${product.shopid}">         
+                <input type="hidden" name="price" value="${product.pprice}">         
+                <input type="hidden" name="surl" value="${shop.surl}">         
+                <input type="hidden" name="sname" value="${shop.sname}">         
+                <input type="hidden" name="email" value="${shop.semail}">         
                 <div class="row justify-content-center">
                   <div class="col-md-4">
-                    <input type="submit" class="btn btn-primary btn-outline-primary btn-block" value="예약완료">
+                    <input type="submit" class="btn btn-primary btn-outline-primary btn-block" value="예약하기">
                   </div>
                 </div>
               </form>
