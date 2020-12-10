@@ -20,8 +20,7 @@ Dr.멍이냥
   + 사용오픈API : 카카오지도API,우편번호API, 구글로그인API, 카카오결제API
   + 기타 : HTML, CSS, bootstrap
 
-첨부
-  + Github URL : https://github.com/Get-bot/DOGCAT/
+
   ![메인페이지](https://user-images.githubusercontent.com/67552880/101337915-9edb1900-38bf-11eb-9fbb-44dadfef77d1.JPG)
   
   ![반응형메인](https://user-images.githubusercontent.com/67552880/101338300-21fc6f00-38c0-11eb-8203-c897caa34df8.JPG)
